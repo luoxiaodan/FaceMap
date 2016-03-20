@@ -1,36 +1,22 @@
 package Topic;
 
 
-import java.util.Scanner;
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.broker.jmx.BrokerViewMBean;
+import org.apache.activemq.broker.jmx.TopicViewMBean;
 
-import javax.jms.Connection;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageConsumer;
-import javax.jms.MessageListener;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
+import javax.jms.*;
 import javax.management.MBeanServerConnection;
 import javax.management.MBeanServerInvocationHandler;
-import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 import javax.swing.*;
-
-import org.apache.activemq.ActiveMQConnectionFactory;
-
-import org.apache.activemq.broker.jmx.BrokerViewMBean;
-import org.apache.activemq.broker.jmx.TopicViewMBean;
-
-import java.awt.*;   
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.MalformedURLException;
+import java.util.Scanner;
 
  
 
@@ -42,29 +28,29 @@ public class MySubscriber extends JFrame{
 	 public int meassage_num=0,unmsg_num=0;
 	 public String name="";
 	 
-	    JTextField jTextField ;//¶¨ÒåÎÄ±¾¿ò×é¼þ
-	    JPasswordField jPasswordField;//¶¨ÒåÃÜÂë¿ò×é¼þ
+	    JTextField jTextField ;//ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	    JPasswordField jPasswordField;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    JLabel jLabel1,jLabel2;
 	    JPanel jp1,jp2,jp3;
-	    Button jb1,jb2,jb3;//´´½¨°´Å¥
+	    Button jb1,jb2,jb3;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
 	    boolean status=true;
-	    //statusÎªtrueÊ±£¬±íÊ¾¸ÃÏûÏ¢²»ÊÇÓÉ×Ô¼º·¢³ö£¬false´ú±í¸ÄÏûÏ¢Îª×Ô¼º·¢³ö
+	    //statusÎªtrueÊ±ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½falseï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	 
 	    public MySubscriber(final String name){
 	        jTextField = new JTextField(12);
 	        jPasswordField = new JPasswordField(13);
-	        jLabel1 = new JLabel("ÓÃ»§Ãû");
-	        jLabel2 = new JLabel("ÃÜÂë");
-	        jb1 = new Button("È·ÈÏ");
-	        jb2 = new Button("È¡Ïû");
-	        jb3 = new Button("·¢ËÍÏûÏ¢");
-	        jb3.addActionListener(new ActionListener() {//·¢ËÍÏûÏ¢
+	        jLabel1 = new JLabel("ï¿½Ã»ï¿½ï¿½ï¿½");
+	        jLabel2 = new JLabel("ï¿½ï¿½ï¿½ï¿½");
+	        jb1 = new Button("È·ï¿½ï¿½");
+	        jb2 = new Button("È¡ï¿½ï¿½");
+	        jb3 = new Button("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢");
+	        jb3.addActionListener(new ActionListener() {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                
-	            	meassage_num++;//ÒÑ¾­·¢ËÍÏûÏ¢ÌõÊý
-	            	if(meassage_num<=100){//100ÌõÏûÏ¢ÒÔÄÚ¿É·¢
-	            	status=false;//±êÖ¾¸ÃÏûÏ¢Îª×Ô¼º·¢ËÍ
+	            	meassage_num++;//ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
+	            	if(meassage_num<=100){//100ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ú¿É·ï¿½
+	            	status=false;//ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	                try {
 	            	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
 
@@ -72,12 +58,12 @@ public class MySubscriber extends JFrame{
 
 	        		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-	        		Destination dest = session.createTopic("Ericsson");//½«ÏûÏ¢·¢ËÍÖÁtopicÉÏ
+	        		Destination dest = session.createTopic("Ericsson");//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½topicï¿½ï¿½
 	        		MessageProducer producer = session.createProducer(dest);
 
 	        		
 	        			TextMessage msg = session.createTextMessage();
-	        			msg.setText("MSG_from: "+name + "  count: "+meassage_num);//À´×ÅNo.xµÄ¿Í»§¶Ë·¢ËÍµÄµÚXÌõÏûÏ¢
+	        			msg.setText("MSG_from: "+name + "  count: "+meassage_num);//ï¿½ï¿½ï¿½ï¿½No.xï¿½Ä¿Í»ï¿½ï¿½Ë·ï¿½ï¿½ÍµÄµï¿½Xï¿½ï¿½ï¿½ï¿½Ï¢
 	        			producer.send(msg);
 
 	        			System.out.println("Message sent: " + msg.getText());
@@ -92,7 +78,7 @@ public class MySubscriber extends JFrame{
 							e2.printStackTrace();
 						}
 	      
-	            }else{//³¬¹ýÒ»°ÙÌõ£¬ÏûÏ¢ÉèÎªÎÞÐ§
+	            }else{//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Îªï¿½ï¿½Ð§
 	            	unmsg_num++;
 	            }
 	            
@@ -128,7 +114,7 @@ public class MySubscriber extends JFrame{
 	    }
 	
 	    public static long getConsumerCount() throws Exception{
-	    	//JMX¼à¿Ø
+	    	//JMXï¿½ï¿½ï¿½
             JMXServiceURL url;
 			url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi");
 			JMXConnector jmxc = JMXConnectorFactory.connect(url);  
@@ -137,12 +123,12 @@ public class MySubscriber extends JFrame{
 	    	ObjectName mbeanName = new ObjectName("org.apache.activemq:type=Broker,brokerName=localhost");
 	    	BrokerViewMBean mbean = MBeanServerInvocationHandler.newProxyInstance(conn, mbeanName, BrokerViewMBean.class, true);
             for (ObjectName topicName : mbean.getTopics()) {
-            	//Ñ°ÕÒtopicÃûÎªEricsson
+            	//Ñ°ï¿½ï¿½topicï¿½ï¿½ÎªEricsson
             TopicViewMBean topicMbean = (TopicViewMBean) MBeanServerInvocationHandler.newProxyInstance(conn, topicName, TopicViewMBean.class,true);
             	
 	            if(topicMbean.getName().equals("Ericsson")){
 	            	//System.out.println(topicMbean.getConsumerCount());
-	            	return topicMbean.getConsumerCount();//»ñÈ¡Ïû·ÑÕßÊý£¨¿Í»§¶Ë£©
+	            	return topicMbean.getConsumerCount();//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë£ï¿½
 	            }
 	       
           }
@@ -153,7 +139,7 @@ public class MySubscriber extends JFrame{
 	    public static void main(String[] args) throws Exception
 	    	 {
 	    	
-	    	long Client_num=MySubscriber.getConsumerCount()+1;//»ñÈ¡µ±Ç°µÄ¿Í»§¶ËÊýÄ¿
+	    	long Client_num=MySubscriber.getConsumerCount()+1;//ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½Ä¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	    	final MySubscriber MS=new MySubscriber("No."+Client_num);
 		    ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
             Connection connection;
@@ -164,18 +150,18 @@ public class MySubscriber extends JFrame{
 
 		    Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-		    Destination topic = session.createTopic("Ericsson");//¶©ÔÄTopic
+		    Destination topic = session.createTopic("Ericsson");//ï¿½ï¿½ï¿½ï¿½Topic
 		    MessageConsumer consumer = session.createConsumer(topic);
 
 		    consumer.setMessageListener(new MessageListener() {
-			public void onMessage(Message msg) {//µÈ´ýÏûÏ¢
+			public void onMessage(Message msg) {//ï¿½È´ï¿½ï¿½ï¿½Ï¢
 				TextMessage txtMsg = (TextMessage) msg;
 				try {
-					if(MS.status){//²»ÊÇ×Ô¼º·¢³öµÄÏûÏ¢
+					if(MS.status){//ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 					
 					System.out.println("Message received: " + txtMsg.getText());
 					}else{
-						MS.status=true;//»Ö¸´×´Ì¬
+						MS.status=true;//ï¿½Ö¸ï¿½×´Ì¬
 					}
 				} catch (JMSException e) {
 					//e.printStackTrace();
@@ -183,7 +169,7 @@ public class MySubscriber extends JFrame{
 			}
 		});
 
-		System.out.println("Waiting for messages... Type 'exit' + <Enter> to exit.");//¹Ø±Õ¿Í»§¶Ë
+		System.out.println("Waiting for messages... Type 'exit' + <Enter> to exit.");//ï¿½Ø±Õ¿Í»ï¿½ï¿½ï¿½
 		Scanner s = new Scanner(System.in);
 		s.next();
 		s.close();
