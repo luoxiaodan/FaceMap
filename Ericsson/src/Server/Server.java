@@ -1,6 +1,7 @@
 package Server;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  */
 public class Server {
 
-    static private List<User> users;
+    static private List<User> users = new ArrayList<User>();
     static private int validLoginTime = 0;
     static private int invalidLoginTime = 0;
 
@@ -32,14 +33,17 @@ public class Server {
 
         if (user.loginRequsetTime ==0)
         {
+
             user.loginDate = current;
             user.loginRequsetTime ++;
             return  true;
         }
         else if (current-user.loginDate < 1000)
         {
-            if(user.loginRequsetTime<=5)
+
+            if(user.loginRequsetTime<5)
             {
+                System.out.println(user.loginRequsetTime);
                 user.loginRequsetTime++;
                 return  true;
             }
@@ -54,22 +58,32 @@ public class Server {
 
     }
 
+    private User findUser(String userName)
+    {
+        for (int i = 0; i<users.size();i++) {
+            if (userName.equals(users.get(i).UserName)) {
+                return users.get(i);
+            }
+        }
+        return null;
+    }
+
     public int login (String userName, String password)
     {
-        for (int i = 0; i<users.size();i++)
+        User theUser = findUser(userName);
+        if(!theUser.equals(null))
         {
-            if (userName.equals(users.get(i).UserName))
+            if (checkTime(theUser))
             {
-                if (checkTime(users.get(i))) {
-                    if (password.equals(users.get(i).Password)) {
-                        validLoginTime++;
-                        users.get(i).isLogin = true;
-                        return 200;
-                    } else {
-                        invalidLoginTime++;
-                        return 201;
-
-                    }
+                if (password.equals(theUser.Password)) {
+                    validLoginTime++;
+                    theUser.isLogin = true;
+                    return 200;
+                }
+                else
+                {
+                    invalidLoginTime++;
+                    return 201;
                 }
             }
             else
@@ -77,10 +91,48 @@ public class Server {
                 invalidLoginTime++;
                 return 203;
             }
-
         }
-
-        invalidLoginTime ++;
-        return 202;
+        else
+        {
+            invalidLoginTime ++;
+            return 202;
+        }
     }
+
+    public boolean checkConnection(String userName)
+    {
+        User theUser = findUser(userName);
+
+        if(!theUser.equals(null))
+        {
+           if (theUser.isLogin)
+               return  true;
+           else
+               return false;
+        }
+        else
+            return false;
+
+    }
+
+    public void sendMessages(String msg,String senderName ) {
+        User sender = findUser(senderName);
+        if (!sender.equals(null) && sender.isLogin) {
+            sender.sendMessagesNum++;
+            if (sender.sendMessagesNum < 100) {
+
+                for (int i = 0; i < users.size(); i++) {
+                    if (!sender.equals(users.get(i)) && users.get(i).isLogin) {
+                        //send msg action here
+                    }
+                }
+            } else {
+                sender.isLogin = false;
+                sender.sendMessagesNum = 0;
+                // send to client log out
+            }
+        }
+    }
+// Login test passed
+
 }
