@@ -39,5 +39,11 @@
 202 | 用户名不存在 |
 203 | 每秒请求超过5次 |
 
+- boolean checkConnection(String userName)
 
+返回值 | 代表结果 | 
+--- | --- | 
+true  | 在登录  | 
+false | 未登录 |
 
+- void sendMessages(String msg,String senderName )
