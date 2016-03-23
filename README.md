@@ -29,8 +29,15 @@
 
 ### Server 接口和返回值说明
 
+- public boolean signUp(String userName,String password)
+
+返回值 | 代表结果 | 
+--- | --- | 
+true  | 注册成功  | 
+false | 注册失败,用户名已存在 |
+
+
 - int login(String username,String password)
-  返回值说明：
 
 返回值 | 代表结果 | 
 --- | --- | 
