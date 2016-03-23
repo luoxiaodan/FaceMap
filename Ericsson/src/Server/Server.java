@@ -4,6 +4,8 @@ package Server;
 import java.util.ArrayList;
 import java.util.List;
 
+import Topic.MySubscriber;
+
 /**
  * Created by Harold_LIU on 3/20/16.
  */
@@ -29,7 +31,7 @@ public class Server {
 
     private boolean checkTime(User user)
     {
-        long current = System.currentTimeMillis(); // 当前时间
+        long current = System.currentTimeMillis(); // µ±Ç°Ê±¼ä
 
         if (user.loginRequsetTime ==0)
         {
@@ -58,7 +60,7 @@ public class Server {
 
     }
 
-    private User findUser(String userName)
+    public User findUser(String userName)
     {
         for (int i = 0; i<users.size();i++) {
             if (userName.equals(users.get(i).UserName)) {
@@ -78,6 +80,12 @@ public class Server {
                 if (password.equals(theUser.Password)) {
                     validLoginTime++;
                     theUser.isLogin = true;
+                    try {
+                        //theUser.setId(MySubscriber.getConsumerCount()+1);
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                     return 200;
                 }
                 else
@@ -105,34 +113,32 @@ public class Server {
 
         if(!theUser.equals(null))
         {
-           if (theUser.isLogin)
-               return  true;
-           else
-               return false;
+            if (theUser.isLogin)
+                return  true;
+            else
+                return false;
         }
         else
             return false;
 
     }
 
-    public void sendMessages(String msg,String senderName ) {
+    public boolean sendMessages(String senderName ) {
         User sender = findUser(senderName);
         if (!sender.equals(null) && sender.isLogin) {
             sender.sendMessagesNum++;
             if (sender.sendMessagesNum < 100) {
+                return true;
+            }else return false;
+        } else {
+            sender.isLogin = false;
+            sender.sendMessagesNum = 0;
 
-                for (int i = 0; i < users.size(); i++) {
-                    if (!sender.equals(users.get(i)) && users.get(i).isLogin) {
-                        //send msg action here
-                    }
-                }
-            } else {
-                sender.isLogin = false;
-                sender.sendMessagesNum = 0;
-                // send to client log out
-            }
+            // send to client log out
+            return false;
         }
     }
+
 // Login test passed
 
 }
