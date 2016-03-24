@@ -14,6 +14,7 @@ public class Server {
     static private List<User> users = new ArrayList<User>();
     static private int validLoginTime = 0;
     static private int invalidLoginTime = 0;
+    static private Server server;
 
     private void userInit()
     {
@@ -24,7 +25,7 @@ public class Server {
         users.add(new User("li", "123", false, 0, 0, 0));
     }
 
-    public  Server ()
+    private   Server ()
     {
         userInit();
     }
@@ -60,7 +61,7 @@ public class Server {
 
     }
 
-    public User findUser(String userName)
+    private User findUser(String userName)
     {
         for (int i = 0; i<users.size();i++) {
             if (userName.equals(users.get(i).UserName)) {
@@ -69,6 +70,16 @@ public class Server {
         }
         return null;
     }
+
+    public static Server sharedServer()
+    {
+        if (server == null)
+        {
+            server = new Server();
+        }
+        return server;
+    }
+
 
     public int login (String userName, String password)
     {
