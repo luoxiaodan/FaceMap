@@ -4,6 +4,19 @@ package Server;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jms.Connection;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+
+import org.apache.activemq.ActiveMQConnectionFactory;
+
+import Client.Client;
 import Topic.MySubscriber;
 
 /**
@@ -15,7 +28,9 @@ public class Server {
     static private int validLoginTime = 0;
     static private int invalidLoginTime = 0;
     static private Server server;
-
+    String userName;
+    String passWord;
+    boolean state=false;
     private void userInit()
     {
         users.add(new User("liu","123",false,0,0,0));
@@ -150,6 +165,100 @@ public class Server {
         }
     }
 
+    class Listen extends Thread{
+    	String topicName;
+    public Listen(String _topicName){
+    	topicName=_topicName;
+    }
+    public void ListenMsg(){
+    	
+    	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+        Connection connection;
+		try {
+			connection = factory.createConnection();
+		
+		    connection.start();
+
+		    Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+		    Destination topic = session.createTopic(topicName);
+		    MessageConsumer consumer = session.createConsumer(topic);
+
+		    consumer.setMessageListener(new MessageListener() {
+			public void onMessage(Message msg) {
+				
+				TextMessage txtMsg = (TextMessage) msg;
+				
+				try {
+					
+					if(topicName.equals("userName")){
+						userName=txtMsg.getText();
+					}else{
+						passWord=txtMsg.getText();
+						if(!state) state=true;
+					}
+						if(state){
+							int pos=userName.indexOf(':');
+							String name=userName.substring(0, pos);
+							String username=userName.substring(pos+1,passWord.length());
+							String password=passWord.substring(pos+1,passWord.length());
+							//System.out.println("name:"+username+",pass:"+password);
+							int back=login(username,password);
+							sendMsg(String.valueOf(back),name);
+							state=false;
+						}
+					
+						
+					} catch (JMSException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	
+			}
+		    });
+			} catch (JMSException e1) {
+				e1.printStackTrace();
+			}
+    	
+    }
+    public void run(){
+
+		
+			ListenMsg();
+		
+	}
+    }
+    
+    public  void sendMsg(String msgText,String toipcName){
+        try {
+    	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+
+		Connection connection = factory.createConnection();
+
+		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+		Destination dest = session.createTopic(toipcName);
+		MessageProducer producer = session.createProducer(dest);
+
+		
+		TextMessage msg = session.createTextMessage();
+		msg.setText(msgText);	
+		producer.send(msg);	
+        System.out.println(msg.getText());
+
+			} catch (JMSException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}  
+    }
 // Login test passed
+    public static void main(String[] args) throws Exception {
+    	Server server=Server.sharedServer();
+    	Listen userName=server.new Listen("userName");
+    	userName.start();
+    	Listen password=server.new Listen("passWord");
+    	password.start();
+    	
+    	
+    }
 
 }

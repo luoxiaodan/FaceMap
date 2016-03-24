@@ -274,8 +274,9 @@ public class Client extends JFrame{
 	}
 	public  void Login(String userName, String password){
     	
-    	int state=server.login(userName, password);
-		sendMsg(String.valueOf(state),name,true);
+    	
+		sendMsg(name+":"+userName,"userName",true);
+		sendMsg(name+":"+password,"passWord",true);
     }
     public  void sendMsg(String msgText,String toipcName,boolean isLogin){
         try {
