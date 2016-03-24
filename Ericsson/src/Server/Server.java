@@ -151,15 +151,18 @@ public class Server {
 
     public boolean sendMessages(String senderName ) {
         User sender = findUser(senderName);
-        if (!sender.equals(null) && sender.isLogin) {
+    	System.out.println("Server"+sender.UserName+sender.isLogin);
+        if (!sender.equals(null)) {
             sender.sendMessagesNum++;
+        	System.out.println("Server 0");
             if (sender.sendMessagesNum < 100) {
+            	System.out.println("Server 1");
                 return true;
             }else return false;
         } else {
             sender.isLogin = false;
             sender.sendMessagesNum = 0;
-
+        	System.out.println("Server 3");
             // send to client log out
             return false;
         }
@@ -200,7 +203,7 @@ public class Server {
 						if(state){
 							int pos=userName.indexOf(':');
 							String name=userName.substring(0, pos);
-							String username=userName.substring(pos+1,passWord.length());
+							String username=userName.substring(pos+1,userName.length());
 							String password=passWord.substring(pos+1,passWord.length());
 							//System.out.println("name:"+username+",pass:"+password);
 							int back=login(username,password);

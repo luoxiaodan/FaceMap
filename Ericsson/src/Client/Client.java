@@ -280,6 +280,7 @@ public class Client extends JFrame{
     }
     public  void sendMsg(String msgText,String toipcName,boolean isLogin){
         try {
+    		System.out.println("before");
     	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
 
 		Connection connection = factory.createConnection();
@@ -292,17 +293,24 @@ public class Client extends JFrame{
 		
 		TextMessage msg = session.createTextMessage();
 		msg.setText(msgText);
-		if(isLogin){
-		producer.send(msg);}
+		if(isLogin)
+		{
+		System.out.println("0");
+		producer.send(msg);
+		}
 		else{
+			System.out.println("1");
 			if(server.sendMessages(staticUsername)){
+				
 				producer.send(msg);
            	}else{
            		//////////relogin
+           		System.out.println("3");
            		this.setVisible(false);
-           		//loginFrame.setVisible(true);
+           		//loginFrame.s4tVisible(true);
 			}
 		}
+		System.out.println("4dsaf");
         System.out.println(msg.getText());
 
 			} catch (JMSException e2) {
