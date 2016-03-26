@@ -23,28 +23,28 @@ import Server.Server;
 import Topic.MySubscriber;
 
 public class Client extends JFrame{
-	//ä¿å­˜ç”¨æˆ·å
+	//±£´æÓÃ»§Ãû
 	public String staticUsername;
-
-	//ç™»é™†JFrame
+	
+	//µÇÂ½JFrame
 	public JFrame loginFrame;
+	JLabel currentState;
+	JLabel currentStateDisplay;
 	JLabel username;
 	JLabel password;
 	JTextField usernameInput;
 	JPasswordField passwordInput;
 	JButton login;
 	JButton register;
-
-	//æ³¨å†Œæ—¶ç”¨åˆ°çš„ç»„ä»¶
+	
+	//×¢²áÊ±ÓÃµ½µÄ×é¼ş
 	JLabel regUsername;
 	JLabel regPassword;
 	JTextField regUsernameInput;
 	JPasswordField regPasswordInput;
 	JButton regBtn;
-
-	//æ˜¾ç¤ºçŠ¶æ€å’Œç»“æœçš„ç»„ä»¶
-	JLabel currentState;
-	JLabel currentStateDisplay;
+	
+	//ÏÔÊ¾×´Ì¬ºÍ½á¹ûµÄ×é¼ş
 	JLabel feedback;
 	JLabel feedbackDisplay;
 	JLabel msgNumber;
@@ -58,37 +58,48 @@ public class Client extends JFrame{
 	JLabel loginFail;
 	JLabel loginFailDisplay;
 	int loginFailCount;
-
-	//æ˜¾ç¤ºæ¶ˆæ¯å’Œå‘é€æ¶ˆæ¯ç»„ä»¶
+	
+	//ÏÔÊ¾ÏûÏ¢ºÍ·¢ËÍÏûÏ¢×é¼ş
 	JLabel msgDisplayLabel;
 	JTextArea msgDisplay;
 	JLabel msgSentLabel;
 	JTextArea msgSent;
 	JButton sentButton;
-
+	
 	String name;
 	Server server;
-
+	
 	/**
-	 *
+	 * 
 	 */
 	public Client(){
 		super();
-
+		
 		JFrame loginFrame = new JFrame();
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		loginFrame.setTitle("ç™»é™†");
+		loginFrame.setTitle("µÇÂ½");
 		loginFrame.setBounds(50, 50, 300, 200);
+		
+		JPanel totalpanel = new JPanel();
+		
 		JPanel loginPanel = new JPanel();
 		loginPanel.setLayout(new GridLayout(3, 1));
-
-		username = new JLabel("ç”¨æˆ·å :");
-		password = new JLabel("å¯†   ç  :");
+		loginPanel.setBounds(0, 50, 300, 150);
+		
+		currentState = new JLabel("µ±Ç°×´Ì¬:");
+		currentStateDisplay = new JLabel("Î´µÇÂ¼");
+		JPanel topPanel = new JPanel();
+		topPanel.add(currentState);
+		topPanel.add(currentStateDisplay);
+		topPanel.setBounds(200, 0, 100, 20);
+		
+		username = new JLabel("ÓÃ»§Ãû :");
+		password = new JLabel("ÃÜ   Âë :");
 		usernameInput = new JTextField(10);
 		passwordInput = new JPasswordField(10);
-		login = new JButton("ç™»é™†");
-		register = new JButton("æ³¨å†Œ");
-
+		login = new JButton("µÇÂ½");
+		register = new JButton("×¢²á");
+		
 		JPanel loginPanel1 = new JPanel();
 		loginPanel1.add(username);
 		loginPanel1.add(usernameInput);
@@ -98,9 +109,9 @@ public class Client extends JFrame{
 		JPanel loginPanel3 = new JPanel();
 		loginPanel3.add(login);
 		loginPanel3.add(register);
-
+		
 		login.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("before"+usernameInput.getText());
@@ -112,23 +123,23 @@ public class Client extends JFrame{
 			}
 		});
 		register.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				final JFrame tempFrame = new JFrame();
 				tempFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				tempFrame.setTitle("æ³¨å†Œ");
+				tempFrame.setTitle("×¢²á");
 				tempFrame.setBounds(50, 50, 300, 200);
 				JPanel tempPanel = new JPanel();
 				tempPanel.setLayout(new GridLayout(3, 1));
-
-				regUsername = new JLabel("ç”¨æˆ·å :");
-				regPassword = new JLabel("å¯†   ç  :");
+				
+				regUsername = new JLabel("ÓÃ»§Ãû :");
+				regPassword = new JLabel("ÃÜ   Âë :");
 				regUsernameInput = new JTextField(10);
 				regPasswordInput = new JPasswordField(10);
-				regBtn = new JButton("æ³¨å†Œ");
-
+				regBtn = new JButton("×¢²á");
+				
 				JPanel regPanel1 = new JPanel();
 				regPanel1.add(regUsername);
 				regPanel1.add(regUsernameInput);
@@ -137,37 +148,43 @@ public class Client extends JFrame{
 				regPanel2.add(regPasswordInput);
 				JPanel regPanel3 = new JPanel();
 				regPanel3.add(regBtn);
-
+				
 				regBtn.addActionListener(new ActionListener() {
-
+					
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						String strUsername = regUsernameInput.getText();//æ³¨å†Œæ—¶è·å–çš„ç”¨æˆ·å
-						String strPassword = regPasswordInput.getText();//æ³¨å†Œæ—¶è·å–çš„å¯†ç 
+						String strUsername = regUsernameInput.getText();//×¢²áÊ±»ñÈ¡µÄÓÃ»§Ãû
+						String strPassword = regPasswordInput.getText();//×¢²áÊ±»ñÈ¡µÄÃÜÂë
 						tempFrame.setVisible(false);
 					}
 				});
-
+				
 				tempPanel.add(regPanel1);
 				tempPanel.add(regPanel2);
 				tempPanel.add(regPanel3);
-
+				
 				tempFrame.add(tempPanel);
 				tempFrame.setVisible(true);
-
+				
 			}
 		});
-
+		
+		//loginPanel.add(topPanel);
 		loginPanel.add(loginPanel1);
 		loginPanel.add(loginPanel2);
 		loginPanel.add(loginPanel3);
-
-		loginFrame.add(loginPanel);
+		
+		totalpanel.add(topPanel);
+		totalpanel.add(loginPanel);
+		
+		//loginFrame.add(topPanel);
+		//loginFrame.add(loginPanel);
+		loginFrame.add(totalpanel);
 		loginFrame.setVisible(true);
-
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("å®¢æˆ·ç«¯");
+		this.setTitle("¿Í»§¶Ë");
 		this.setBounds(10, 10, 600, 700);
 		name="";
 		status=true;
@@ -176,35 +193,43 @@ public class Client extends JFrame{
 		unmsgNumberCount = 0;
 		loginSuccessfulCount = 0;
 		loginFailCount = 0;
-
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBounds(0,0,600,700);
-
-		currentState = new JLabel("å½“å‰çŠ¶æ€:");
-		currentStateDisplay = new JLabel("æœªç™»å½•");
-
-		msgNumber = new JLabel("å·²å‘é€æ¶ˆæ¯æ•°ç›®:");
+		
+		msgNumber = new JLabel("ÒÑ·¢ËÍÏûÏ¢ÊıÄ¿:");
 		msgNumberDisplay = new JLabel("0");
-
-		JPanel subPanel1 = new JPanel();
+		
+		/*JPanel subPanel1 = new JPanel();
 		subPanel1.add(currentState);
-		subPanel1.add(currentStateDisplay);
+		subPanel1.add(currentStateDisplay);*/
+		feedback = new JLabel("·´À¡½á¹û:");
+		feedbackDisplay = new JLabel("¿Õ");
+		
+		JPanel subPanel5 = new JPanel();
+		subPanel5.setLayout(new GridLayout(1,2));
+		subPanel5.add(feedback);
+		subPanel5.add(feedbackDisplay);	
+		subPanel5.setBounds(400,0,200,100);
+		
 		JPanel subPanel2 = new JPanel();
 		subPanel2.add(msgNumber);
 		subPanel2.add(msgNumberDisplay);
-
-		subPanel1.setBounds(0, 37, 200, 80);
-		subPanel2.setBounds(0, 137, 200, 80);
-
+		
+		//subPanel5.setBounds(0, 37, 200, 80);
+		//subPanel2.setBounds(0, 137, 200, 80);	
+		subPanel5.setBounds(300, 20, 200, 80);
+		subPanel2.setBounds(250,145,200,40);
+		
 		JPanel subRightPanel = new JPanel();
-
-		loginSuccessful = new JLabel("ç™»é™†æˆåŠŸæ¬¡æ•°:");
+			
+		loginSuccessful = new JLabel("µÇÂ½³É¹¦´ÎÊı:");
 		loginSuccessfulDisplay = new JLabel("0");
-
-		loginFail = new JLabel("ç™»é™†å¤±è´¥æ¬¡æ•°:");
+		
+		loginFail = new JLabel("µÇÂ½Ê§°Ü´ÎÊı:");
 		loginFailDisplay = new JLabel("0");
-
+		
 		JPanel subPanel7 = new JPanel();
 		subPanel7.setLayout(new GridLayout(1,2));
 		subPanel7.add(loginSuccessful);
@@ -213,28 +238,23 @@ public class Client extends JFrame{
 		subPanel8.setLayout(new GridLayout(1,2));
 		subPanel8.add(loginFail);
 		subPanel8.add(loginFailDisplay);
-
-		subPanel7.setBounds(215,0,185,100);
-		subPanel8.setBounds(215,100,185,100);
-
+		
+		//subPanel7.setBounds(215,0,185,100);
+		//subPanel8.setBounds(215,100,185,100);
+		subPanel7.setBounds(100, 20, 200, 80);
+		subPanel8.setBounds(100, 120, 200, 80);
+		
 		JPanel subRightRightPanel = new JPanel();
-
-		feedback = new JLabel("åé¦ˆç»“æœ:");
-		feedbackDisplay = new JLabel("ç©º");
-
-		JPanel subPanel5 = new JPanel();
-		subPanel5.setLayout(new GridLayout(1,2));
-		subPanel5.add(feedback);
-		subPanel5.add(feedbackDisplay);
-		subPanel5.setBounds(400,0,200,100);
-
-		panel.add(subPanel1);
+		
+		
+		
+		//panel.add(subPanel1);
 		panel.add(subPanel2);
 		panel.add(subPanel7);
 		panel.add(subPanel8);
 		panel.add(subPanel5);
-
-		msgDisplayLabel = new JLabel("æ¶ˆæ¯æ˜¾ç¤ºæ¡†");
+		
+		msgDisplayLabel = new JLabel("ÏûÏ¢ÏÔÊ¾¿ò");
 		msgDisplay = new JTextArea();
 		msgDisplay.setLineWrap(true);
 		msgDisplay.setEditable(false);
@@ -242,12 +262,12 @@ public class Client extends JFrame{
 		msgDisplay.setBounds(20,250,500,100);
 		msgDisplay.setBorder(BorderFactory.createLineBorder(Color.gray,2));
 		panel.add(msgDisplayLabel);
-		panel.add(msgDisplay);
-
-		msgSentLabel = new JLabel("æ¶ˆæ¯å‘é€æ¡†");
+		panel.add(msgDisplay);		
+		
+		msgSentLabel = new JLabel("ÏûÏ¢·¢ËÍ¿ò");
 		msgSent = new JTextArea();
-		sentButton = new JButton("å‘é€");
-
+		sentButton = new JButton("·¢ËÍ");
+		
 		msgSent.setLineWrap(true);
 		msgSentLabel.setBounds(20, 380, 100, 20);
 		msgSent.setBounds(20,400,500,100);
@@ -263,142 +283,137 @@ public class Client extends JFrame{
 				String str = msgSent.getText();
 				msgNumberCount++;
 				msgNumberDisplay.setText(String.valueOf(msgNumberCount));
-				//msgDisplay.setText(str);   //æ˜¾ç¤ºåˆ°æ¶ˆæ¯æ˜¾ç¤ºæ¡†
+				//msgDisplay.setText(str);   //ÏÔÊ¾µ½ÏûÏ¢ÏÔÊ¾¿ò
 				status=false;
 				sendMsg(str,"Ericsson",false);
 			}
 		});
 		this.add(panel);
 		this.setVisible(false);
-
+		
 	}
 	public  void Login(String userName, String password){
-
-
+    	
+    	
 		sendMsg(name+":"+userName,"userName",true);
 		sendMsg(name+":"+password,"passWord",true);
-	}
-	public  void sendMsg(String msgText,String toipcName,boolean isLogin){
-		try {
-			System.out.println("before");
-			ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+    }
+    public  void sendMsg(String msgText,String toipcName,boolean isLogin){
+        try {
+    	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
 
-			Connection connection = factory.createConnection();
+		Connection connection = factory.createConnection();
 
-			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-			Destination dest = session.createTopic(toipcName);
-			MessageProducer producer = session.createProducer(dest);
+		Destination dest = session.createTopic(toipcName);
+		MessageProducer producer = session.createProducer(dest);
 
-
-			TextMessage msg = session.createTextMessage();
-			msg.setText(msgText);
-			if(isLogin)
-			{
-				System.out.println("0");
+		
+		TextMessage msg = session.createTextMessage();
+		msg.setText(msgText);
+		if(isLogin)
+		{
+		producer.send(msg);
+		}
+		else{
+			if(server.sendMessages(staticUsername)){
+				
 				producer.send(msg);
-			}
-			else{
-				System.out.println("1");
-				if(server.sendMessages(staticUsername)){
-
-					producer.send(msg);
-				}else{
-					//////////relogin
-					System.out.println("3");
-					this.setVisible(false);
-					//loginFrame.s4tVisible(true);
-				}
-			}
-			System.out.println("4dsaf");
-			System.out.println(msg.getText());
-
-		} catch (JMSException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-	}
-
-	class Listen extends Thread{
-		String topicName;
-		boolean isLogin;
-
-		public Listen(String _topicName,boolean _isLogin){
-			topicName=_topicName;
-			isLogin=_isLogin;
-		}
-		public  void ListenMsg()throws JMSException {
-
-			ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
-			Connection connection;
-			try {
-				connection = factory.createConnection();
-
-				connection.start();
-
-				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-
-				Destination topic = session.createTopic(topicName);
-				MessageConsumer consumer = session.createConsumer(topic);
-
-				consumer.setMessageListener(new MessageListener() {
-					public void onMessage(Message msg) {
-
-						TextMessage txtMsg = (TextMessage) msg;
-
-						try {
-							System.out.println(isLogin+"  "+topicName+ " "+ status+txtMsg.getText());
-							if(!isLogin){
-								if(status){
-									if(feedbackDisplay.getText().equals("200")){
-										msgDisplay.setText(txtMsg.getText());
-
-									}
-								}
-
-							}else{
-
-								feedbackDisplay.setText(txtMsg.getText());
-
-								if(txtMsg.getText().equals("200")){
-
-									//alredy login
-									Client.this.setVisible(true);
-									//loginFrame.setVisible(false);
-									currentStateDisplay.setText("å·²ç™»å½•");
-									loginSuccessfulCount++;
-									loginSuccessfulDisplay.setText(String.valueOf(loginSuccessfulCount));
-								}else{
-									//loginFrame.setVisible(true);
-									loginFailCount++;
-									loginFailDisplay.setText(String.valueOf(loginFailCount));
-								}
-							}
-
-						} catch (JMSException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						status=true;
-					}
-				});
-			} catch (JMSException e1) {
-				e1.printStackTrace();
+           	}else{
+           		//////////relogin
+           		this.setVisible(false);
+           		//loginFrame.s4tVisible(true);
 			}
 		}
-		public void run(){
+        System.out.println(msg.getText());
 
-			try {
+			} catch (JMSException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}  
+    }
+   
+    class Listen extends Thread{
+    	 String topicName;
+    	 boolean isLogin;
+    	 
+    	 public Listen(String _topicName,boolean _isLogin){
+    		 topicName=_topicName;
+    		 isLogin=_isLogin;
+    	 }
+    	public  void ListenMsg()throws JMSException {
+    		
+  		  ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+            Connection connection;
+  		try {
+  			connection = factory.createConnection();
+  		
+  		    connection.start();
+
+  		    Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+  		    Destination topic = session.createTopic(topicName);
+  		    MessageConsumer consumer = session.createConsumer(topic);
+
+  		    consumer.setMessageListener(new MessageListener() {
+  			public void onMessage(Message msg) {
+  				
+  				TextMessage txtMsg = (TextMessage) msg;
+  				
+  				try {
+  					System.out.println(isLogin+"  "+topicName+ " "+ status+txtMsg.getText());
+  					if(!isLogin){
+  						if(status){ 
+  							if(feedbackDisplay.getText().equals("µÇÂ½³É¹¦")){
+  							msgDisplay.setText(txtMsg.getText());
+  							
+  							}
+  						}
+  						
+  					}else{
+  						
+  						feedbackDisplay.setText("µÇÂ½³É¹¦");
+  						
+  						if(txtMsg.getText().equals("200")){
+  							
+  							//alredy login
+  							Client.this.setVisible(true);
+  							//loginFrame.setVisible(false);
+  							currentStateDisplay.setText("ÒÑµÇÂ¼");
+  							loginSuccessfulCount++;
+  							loginSuccessfulDisplay.setText(String.valueOf(loginSuccessfulCount));
+  						}else{
+  							//loginFrame.setVisible(true);
+  							loginFailCount++;
+  							loginFailDisplay.setText(String.valueOf(loginFailCount));
+  						}
+  					}
+  						
+  					} catch (JMSException e) {
+  						// TODO Auto-generated catch block
+  						e.printStackTrace();
+  					}
+  				status=true;
+  			}
+  		    });
+  			} catch (JMSException e1) {
+  				e1.printStackTrace();
+  			}
+   }
+    	public void run(){
+
+    		try {
 				ListenMsg();
 			} catch (JMSException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-		}
-	}
-
+			}	
+    	}
+    }
+	
 	public static void main(String[] args) throws Exception {
-
+		
 		long ClientCount=MySubscriber.getConsumerCount();
 		Client client = new Client();
 		Client.Listen mainListen=client.new Listen("Ericsson",false);
@@ -406,9 +421,9 @@ public class Client extends JFrame{
 		client.name=String.valueOf(ClientCount);
 		Listen loginListen = client.new Listen(client.name,true);
 		//Listen loginListen = client.new Listen("sb",true);
-
-		loginListen.start();
-
+		
+	    loginListen.start();
+		
 	}
 
 }
