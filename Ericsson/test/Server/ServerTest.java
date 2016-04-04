@@ -12,109 +12,109 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class ServerTest {
-	
+
 	Server server;
 	@Before
 	public void setUp() throws Exception {
-		server = new Server();
+		server = Server.sharedServer();
 	}
 
 	@Test
 	public void testFindUser() throws Exception{
 		Method testFindUser = server.getClass().getDeclaredMethod("findUser",String.class);
 		testFindUser.setAccessible(true);
-		//ÓÃ»§Ãû´æÔÚµÄÇé¿öÏÂ
+		//ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Object user1 = testFindUser.invoke(server, "liu");
 		Assert.assertNotNull(user1);
-		//ÓÃ»§Ãû²»´æÔÚµÄÇé¿öÏÂ
+		//ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Object user2 = testFindUser.invoke(server, "l");
 		Assert.assertNull(user2);
 	}
-	
+
 	@Test
 	public void testCheckConnection() throws Exception{
 		Method getFindUser = server.getClass().getDeclaredMethod("findUser",String.class);
 		getFindUser.setAccessible(true);
 		User user = (User)getFindUser.invoke(server, "liu");
-		//ÔÚµÇÂ½×´Ì¬ÏÂ²âÊÔ
+		//ï¿½Úµï¿½Â½×´Ì¬ï¿½Â²ï¿½ï¿½ï¿½
 		user.isLogin = true;
 		Boolean result1 = server.checkConnection("liu");
 		Assert.assertTrue(result1);
-		//ÔÚÎ´µÇÂ¼×´Ì¬ÏÂ²âÊÔ
+		//ï¿½ï¿½Î´ï¿½ï¿½Â¼×´Ì¬ï¿½Â²ï¿½ï¿½ï¿½
 		user.isLogin = false;
-		Boolean result2 = server.checkConnection("liu");		
+		Boolean result2 = server.checkConnection("liu");
 		Assert.assertFalse(result2);
-		//ÓÃ²»¶ÔµÄÓÃ»§Ãû²âÊÔ
+		//ï¿½Ã²ï¿½ï¿½Ôµï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Boolean result3 = server.checkConnection("llll");
 		Assert.assertFalse(result3);
 	}
 
-	@Test
-	public void testSendMessages() throws Exception{
-		Method getFindUser = server.getClass().getDeclaredMethod("findUser",String.class);
-		getFindUser.setAccessible(true);
-		User user = (User)getFindUser.invoke(server, "liu");
-		//¿ÉÒÔ·¢ËÍÏûÏ¢×´Ì¬
-		user.sendMessagesNum = 80;
-		Boolean result1 = server.sendMessages("liu");
-		Assert.assertTrue(result1);
-		//²»¿ÉÒÔ·¢ËÍÏûÏ¢×´Ì¬
-		user.sendMessagesNum = 180;
-		Boolean result2 = server.sendMessages("liu");
-		Assert.assertFalse(result2);
-		//ÓÃ»§Ãû²»´æÔÚµÄÇé¿öÏÂ
-		Boolean result3 = server.sendMessages("l");
-		Assert.assertFalse(result3);
-		
-	}
+//	@Test
+//	public void testSendMessages() throws Exception{
+//		Method getFindUser = server.getClass().getDeclaredMethod("findUser",String.class);
+//		getFindUser.setAccessible(true);
+//		User user = (User)getFindUser.invoke(server, "liu");
+//		//ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢×´Ì¬
+//		user.sendMessagesNum = 80;
+//		Boolean result1 = server.sendMessages("liu");
+//		Assert.assertTrue(result1);
+//		//ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢×´Ì¬
+//		user.sendMessagesNum = 180;
+//		Boolean result2 = server.sendMessages("liu");
+//		Assert.assertFalse(result2);
+//		//ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//		Boolean result3 = server.sendMessages("l");
+//		Assert.assertFalse(result3);
+//
+//	}
 
-	@Test
-	public void testSendMsg() {
-		ExpectedException thrown= ExpectedException.none();
-		thrown.expect(JMSException.class);
-	    server.sendMsg("hahaha", "aa");
-	}
-	
+//	@Test
+//	public void testSendMsg() {
+//		ExpectedException thrown= ExpectedException.none();
+//		thrown.expect(JMSException.class);
+//	    server.sendMsg("hahaha", "aa");
+//	}
+
 	@Test
 	public void testCheckTime() throws Exception{
 		Method getFindUser = server.getClass().getDeclaredMethod("findUser",String.class);
 		getFindUser.setAccessible(true);
 		User user = (User)getFindUser.invoke(server, "liu");
-		
+
 		Method testCheckTime = server.getClass().getDeclaredMethod("checkTime",User.class);
 		testCheckTime.setAccessible(true);
-		//¸ù¾İµ÷ÓÃcheckTime£¨£©º¯ÊıµÄÇé¿ö£¬¿ÉÒÔÅĞ¶Ï´ËÊ±user¶ÔÏóÊÇÒ»¶¨´æÔÚµÄ£¬ËùÒÔ²âÊÔÊ±²»ÓÃ²âÊÔuser¶ÔÏó²»´æÔÚµÄÇé¿ö
-		//ÇëÇó´ÎÊıÎª0µÄÇé¿öÏÂ
+		//ï¿½ï¿½İµï¿½ï¿½ï¿½checkTimeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¶Ï´ï¿½Ê±userï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ£ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½userï¿½ï¿½ï¿½ó²»´ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		user.loginRequsetTime = 0;
 		Boolean result1 = (Boolean) testCheckTime.invoke(server, user);
 		Assert.assertTrue(result1);
-		//ÇëÇó´ÎÊı´óÓÚ0²¢ÇÒ¾àÀëÉÏ´ÎÇëÇóÊ±¼äĞ¡ÓÚ1sµÄÇé¿öÏÂµÄÁ½ÖÖÇé¿ö
-		//<1>ÇëÇó´ÎÊıĞ¡ÓÚ5´Î
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½Ò¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ğ¡ï¿½ï¿½1sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//<1>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½5ï¿½ï¿½
 		user.loginDate = System.currentTimeMillis();
 		user.loginRequsetTime = 3;
 		Boolean result2 = (Boolean) testCheckTime.invoke(server, user);
 		Assert.assertTrue(result2);
-		//<2>ÇëÇó´ÎÊı´óÓÚ5´Î
+		//<2>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½
 		user.loginDate = System.currentTimeMillis();
 		user.loginRequsetTime = 6;
 		Boolean result3 = (Boolean) testCheckTime.invoke(server, user);
 		Assert.assertFalse(result3);
-		//ÇëÇó´ÎÊı²»Îª0²¢ÇÒÇëÇóÊ±¼ä¼ä¸ô´óÓÚ1s
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1s
 		user.loginDate = System.currentTimeMillis()-2000;
 		user.loginRequsetTime = 6;
 		Boolean result4 = (Boolean) testCheckTime.invoke(server, user);
 		Assert.assertTrue(result4);
 	}
-	
+
 	@Test
 	public void testLogin() throws Exception{
-		//ÄÜÕı³£µÇÂ½µÄÇé¿ö
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int result1 = server.login("liu", "123");
 		Assert.assertEquals(result1, 200);
-		//ÃÜÂë²»ÕıÈ·µÄÇé¿ö
+		//ï¿½ï¿½ï¿½ë²»ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½
 		int result2 = server.login("liu", "0");
 		Assert.assertEquals(result2, 201);
-		//Ã¿ÃëÇëÇó´ÎÊı´óÓÚ5´Î
+		//Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½
 		Method getFindUser = server.getClass().getDeclaredMethod("findUser",String.class);
 		getFindUser.setAccessible(true);
 		User user = (User)getFindUser.invoke(server, "liu");
@@ -122,10 +122,10 @@ public class ServerTest {
 		user.loginRequsetTime = 6;
 		int result3 = server.login("liu", "123");
 		Assert.assertEquals(result3, 203);
-		//ÓÃ»§Ãû²»´æÔÚ
+		//ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int result4 = server.login("l", "123");
 		Assert.assertEquals(result4, 202);
-		
+
 	}
 
 }

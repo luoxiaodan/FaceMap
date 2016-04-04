@@ -16,8 +16,7 @@ import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import Client.Client;
-import Topic.MySubscriber;
+import com.HaroldLIU.PerformanceManager;
 
 /**
  * Created by Harold_LIU on 3/20/16.
@@ -25,12 +24,13 @@ import Topic.MySubscriber;
 public class Server {
 
     static private List<User> users = new ArrayList<User>();
-    static private int validLoginTime = 0;
-    static private int invalidLoginTime = 0;
     static private Server server;
     String userName;
     String passWord;
     boolean state=false;
+
+    PerformanceManager performanceManager = new PerformanceManager("/Users/Harold_LIU/Desktop/testLog.txt",60*1000);
+
     private void userInit()
     {
         users.add(new User("liu","123",false,0,0,0));
@@ -43,11 +43,12 @@ public class Server {
     private   Server ()
     {
         userInit();
+        performanceManager.start();
     }
 
     private boolean checkTime(User user)
     {
-        long current = System.currentTimeMillis(); // µ±Ç°Ê±¼ä
+        long current = System.currentTimeMillis();
 
         if (user.loginRequsetTime ==0)
         {
@@ -91,10 +92,12 @@ public class Server {
         if (server == null)
         {
             server = new Server();
+
+
+
         }
         return server;
     }
-
 
     public int login (String userName, String password)
     {
@@ -104,31 +107,26 @@ public class Server {
             if (checkTime(theUser))
             {
                 if (password.equals(theUser.Password)) {
-                    validLoginTime++;
+                    performanceManager.successTime++;
                     theUser.isLogin = true;
-                    try {
-                        //theUser.setId(MySubscriber.getConsumerCount()+1);
-                    } catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+
                     return 200;
                 }
                 else
                 {
-                    invalidLoginTime++;
+                    performanceManager.failTime++;
                     return 201;
                 }
             }
             else
             {
-                invalidLoginTime++;
+                performanceManager.failTime++;
                 return 203;
             }
         }
         else
         {
-            invalidLoginTime ++;
+            performanceManager.failTime ++;
             return 202;
         }
     }
@@ -149,20 +147,18 @@ public class Server {
 
     }
 
-    
-
     class Listen extends Thread{
     	String topicName;
     public Listen(String _topicName){
     	topicName=_topicName;
     }
     public void ListenMsg(){
-    	
+
     	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
         Connection connection;
 		try {
 			connection = factory.createConnection();
-		
+
 		    connection.start();
 
 		    Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -172,11 +168,11 @@ public class Server {
 
 		    consumer.setMessageListener(new MessageListener() {
 			public void onMessage(Message msg) {
-				
+
 				TextMessage txtMsg = (TextMessage) msg;
-				
+
 				try {
-					
+
 					if(topicName.equals("userName")){
 						userName=txtMsg.getText();
 					}else{
@@ -188,32 +184,25 @@ public class Server {
 							String name=userName.substring(0, pos);
 							String username=userName.substring(pos+1,userName.length());
 							String password=passWord.substring(pos+1,passWord.length());
-							//System.out.println("name:"+username+",pass:"+password);
 							int back=login(username,password);
 							sendMsg(String.valueOf(back),name);
 							state=false;
 						}
-					
-						
 					} catch (JMSException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}	
+					}
 			}
 		    });
 			} catch (JMSException e1) {
 				e1.printStackTrace();
 			}
-    	
-    }
-    public void run(){
 
-		
-			ListenMsg();
-		
-	}
     }
-    
+    public void run(){ListenMsg();}
+
+    }
+
     public  void sendMsg(String msgText,String toipcName){
         try {
     	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
@@ -225,26 +214,25 @@ public class Server {
 		Destination dest = session.createTopic(toipcName);
 		MessageProducer producer = session.createProducer(dest);
 
-		
+
 		TextMessage msg = session.createTextMessage();
-		msg.setText(msgText);	
-		producer.send(msg);	
+		msg.setText(msgText);
+		producer.send(msg);
         System.out.println(msg.getText());
 
 			} catch (JMSException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
-			}  
+			}
     }
-// Login test passed
     public static void main(String[] args) throws Exception {
     	Server server=Server.sharedServer();
     	Listen userName=server.new Listen("userName");
     	userName.start();
     	Listen password=server.new Listen("passWord");
     	password.start();
-    	
-    	
+    	System.out.println("--------Server Start------");
+
     }
 
 }
