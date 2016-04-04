@@ -12,9 +12,9 @@
 
 ### Documents:
 
-- [管理文档](https://github.com/Gavin96/SoftwareReuse/blob/master/Ericsson/document/%E7%AE%A1%E7%90%86%E6%96%87%E6%A1%A3.pdf)
-- [测试文档](https://github.com/Gavin96/SoftwareReuse/blob/master/Ericsson/document/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3.pdf)
-- [程序文档](https://github.com/Gavin96/SoftwareReuse/blob/master/%E7%A8%8B%E5%BA%8F%E6%96%87%E6%A1%A3_Final.pdf)
+- [管理文档](https://github.com/Gavin96/SoftwareReuse/blob/master/Document/%E7%AE%A1%E7%90%86%E6%96%87%E6%A1%A3.pdf)
+- [测试文档](https://github.com/Gavin96/SoftwareReuse/blob/master/Document/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3.pdf)
+- [程序文档](https://github.com/Gavin96/SoftwareReuse/blob/master/Document/%E7%A8%8B%E5%BA%8F%E6%96%87%E6%A1%A3.pdf)
 
 ===
 
