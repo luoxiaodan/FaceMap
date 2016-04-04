@@ -20,17 +20,24 @@
 
 ### 可复用构件(Reuse Component):
 
-- [Server](https://github.com/Gavin96/SoftwareReuse/blob/master/Ericsson/src/Server/Server.java):
-Server 整体可以作为一个实现同样功能系统的后端来被使用，整个Server采用单例模式，保证数据和操作的唯一性和及时性。
+- [Performance Management Model](https://github.com/Gavin96/SoftwareReuse/blob/master/PerformanceManager/src/com/HaroldLIU/PerformanceManager.java)
+接收系统的性能指标，每分钟自动生成报告并且输出到单独的性能文件(包括报告时间)
 使用方法:
 
+首先需要引入[jar包](https://github.com/Gavin96/SoftwareReuse/tree/master/Jar)
 ```java
-//首先需引入Server的jar包
-Server server = Server.sharedServer();
-server.login("Username","Password");
-```
-其它接口可参考[下面👇 ](https://github.com/Gavin96/SoftwareReuse#server-接口和返回值说明)的Server接口说明
 
+/**
+ * path: 输出文件的路径
+ * delay: 多长时间输出一次
+ */
+PerformanceManager performanceManager = new PerformanceManager(String path,long delay);
+performanceManager.start();
+//现在支持两种性能属性，成功登录次数和失败登录次数
+performanceManager.successTime;
+performanceManager.failTime;
+```
+TODO: 自定义性能属性
 - [通讯组件](https://github.com/Gavin96/SoftwareReuse/blob/master/Ericsson/src/Topic/MySubscriber.java)
 在activemq的基础上，对activemq提供的topic模式进行了一定的封装，为实现收发消息的系统提供了更简易的Topic收发订阅组件
 使用方法:
