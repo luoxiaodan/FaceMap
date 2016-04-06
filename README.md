@@ -20,7 +20,7 @@
 
 ### 可复用构件(Reuse Component):
 
-- [Performance Management Model](https://github.com/Gavin96/SoftwareReuse/blob/master/PerformanceManager/src/com/HaroldLIU/PerformanceManager.java)
+- [Performance Management Model](https://github.com/Gavin96/SoftwareReuse/blob/master/PerformanceManager/src/com/HaroldLIU/PerformanceManager.java):
 接收系统的性能指标，每分钟自动生成报告并且输出到单独的性能文件(包括报告时间)
 使用方法:
 
@@ -38,6 +38,30 @@ performanceManager.successTime;
 performanceManager.failTime;
 ```
 TODO: 自定义性能属性
+
+- [License Model](https://github.com/Gavin96/SoftwareReuse/blob/master/LicenseManager/src/com/HaroldLIU/LicenseManager.java):
+提供Throughput和Capacity两种检测方式，同样需要引入[jar包](https://github.com/Gavin96/SoftwareReuse/tree/master/Jar)
+
+```java
+//初始化
+LicenseManager licenseManager = new LicenseManager();
+/**
+ * max: 预设的上限
+ * init: 计数初始值
+ */
+licenseManager.CapacityInit(int max, int init);
+/**
+ * max: 预设的上限
+ * time: 时间间隔
+ * init: 计数初始值
+ */
+licenseManager.ThroughputInit(int max,long time, int init);
+//使用:
+// 返回值为bool，如果是true表示未超过上限，如果是false表示已超过上限
+licenseManager.CapacityCheck();
+licenseManager.ThroughputCheck();
+```
+
 - [通讯组件](https://github.com/Gavin96/SoftwareReuse/blob/master/Ericsson/src/Topic/MySubscriber.java)
 在activemq的基础上，对activemq提供的topic模式进行了一定的封装，为实现收发消息的系统提供了更简易的Topic收发订阅组件
 使用方法:
