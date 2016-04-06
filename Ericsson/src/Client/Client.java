@@ -19,6 +19,8 @@ import javax.swing.*;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import Topic.MySubscriber;
+import com.HaroldLIU.LicenseManager;
+import com.HaroldLIU.PerformanceManager;
 
 public class Client extends JFrame{
 	//保存用户名
@@ -47,15 +49,12 @@ public class Client extends JFrame{
 	JLabel feedbackDisplay;
 	JLabel msgNumber;
 	JLabel msgNumberDisplay;
-	int msgNumberCount;
 	int unmsgNumberCount;
 	boolean status;
 	JLabel loginSuccessful;
 	JLabel loginSuccessfulDisplay;
-	int loginSuccessfulCount;
 	JLabel loginFail;
 	JLabel loginFailDisplay;
-	int loginFailCount;
 
 	//显示消息和发送消息组件
 	JLabel msgDisplayLabel;
@@ -66,8 +65,13 @@ public class Client extends JFrame{
 
 	String name;
 
+	LicenseManager licenseManager = new LicenseManager();
+    PerformanceManager performanceManager = new PerformanceManager("/Users/Harold_LIU/Desktop/ClientLog.txt",60*1000);
+
 	public Client(){
 		super();
+
+		licenseManager.CapacityInit(100,0);
 
 		loginFrame = new JFrame();
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -182,10 +186,8 @@ public class Client extends JFrame{
 		this.setBounds(10, 10, 600, 700);
 		name="";
 		status=true;
-		msgNumberCount = 0;
 		unmsgNumberCount = 0;
-		loginSuccessfulCount = 0;
-		loginFailCount = 0;
+
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -272,8 +274,9 @@ public class Client extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String str = msgSent.getText();
-				msgNumberCount++;
-				msgNumberDisplay.setText(String.valueOf(msgNumberCount));
+				licenseManager.CapacityCheck();
+				//TODO MAKE IT public
+				msgNumberDisplay.setText(String.valueOf(""));
 				//msgDisplay.setText(str);   //显示到消息显示框
 				status=false;
 				sendMsg(str,"Ericsson",false);
@@ -307,7 +310,8 @@ public class Client extends JFrame{
 				producer.send(msg);
 			}
 			else{
-				if(msgNumberCount<100){
+
+				if(licenseManager.CapacityCheck()){
 
 					producer.send(msg);
 				}else
@@ -369,12 +373,12 @@ public class Client extends JFrame{
 									Client.this.setVisible(true);
 									//loginFrame.setVisible(false);
 									currentStateDisplay.setText("已登录");
-									loginSuccessfulCount++;
-									loginSuccessfulDisplay.setText(String.valueOf(loginSuccessfulCount));
+									performanceManager.successTime++;
+									loginSuccessfulDisplay.setText(String.valueOf(performanceManager.successTime));
 								}else{
 									//loginFrame.setVisible(true);
-									loginFailCount++;
-									loginFailDisplay.setText(String.valueOf(loginFailCount));
+									performanceManager.failTime++;
+									loginFailDisplay.setText(String.valueOf(performanceManager.failTime));
 								}
 							}
 

@@ -17,6 +17,7 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import com.HaroldLIU.PerformanceManager;
+import com.HaroldLIU.LicenseManager;
 
 /**
  * Created by Harold_LIU on 3/20/16.
@@ -30,6 +31,7 @@ public class Server {
     boolean state=false;
 
     PerformanceManager performanceManager = new PerformanceManager("/Users/Harold_LIU/Desktop/testLog.txt",60*1000);
+    LicenseManager licenseManager = new LicenseManager();
 
     private void userInit()
     {
@@ -44,37 +46,8 @@ public class Server {
     {
         userInit();
         performanceManager.start();
-    }
-
-    private boolean checkTime(User user)
-    {
-        long current = System.currentTimeMillis();
-
-        if (user.loginRequsetTime ==0)
-        {
-
-            user.loginDate = current;
-            user.loginRequsetTime ++;
-            return  true;
-        }
-        else if (current-user.loginDate < 1000)
-        {
-
-            if(user.loginRequsetTime<5)
-            {
-                System.out.println(user.loginRequsetTime);
-                user.loginRequsetTime++;
-                return  true;
-            }
-            else
-                return false;
-        }
-        else
-        {
-            user.loginRequsetTime = 0;
-            return  true;
-        }
-
+        licenseManager.ThroughputInit(5,1000,0);
+        licenseManager.CapacityInit(100,0);
     }
 
     private User findUser(String userName)
@@ -104,7 +77,7 @@ public class Server {
         User theUser = findUser(userName);
         if(!theUser.equals(null))
         {
-            if (checkTime(theUser))
+            if (licenseManager.ThroughputCheck())
             {
                 if (password.equals(theUser.Password)) {
                     performanceManager.successTime++;
