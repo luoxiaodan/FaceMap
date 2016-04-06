@@ -62,7 +62,7 @@ licenseManager.CapacityCheck();
 licenseManager.ThroughputCheck();
 ```
 
-- [通讯组件](https://github.com/Gavin96/SoftwareReuse/blob/master/Ericsson/src/Topic/MySubscriber.java)
+- [通讯组件](https://github.com/Gavin96/SoftwareReuse/blob/master/Topic/src/com/TopicLuo/MySubscriber.java)
 在activemq的基础上，对activemq提供的topic模式进行了一定的封装，为实现收发消息的系统提供了更简易的Topic收发订阅组件
 使用方法:
 ```java

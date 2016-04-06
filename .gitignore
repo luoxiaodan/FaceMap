@@ -4,6 +4,7 @@
 Ericsson/out/
 PerformanceManager/out
 LicenseManager/out
+MySubscriber/out
 
 # Other's Jar
 Jar/activemq-all-5.11.2.jar
