@@ -30,10 +30,10 @@ public class Client extends JFrame{
 	public String port;
 	public String path;
 	
-	//淇濆瓨鐢ㄦ埛鍚�
+	//保存用户名
 	public String staticUsername;
 
-	//鐧婚檰JFrame
+	//登陆JFrame
 	public JFrame loginFrame;
 	JLabel currentState;
 	JLabel currentStateDisplay;
@@ -44,14 +44,14 @@ public class Client extends JFrame{
 	JButton login;
 	JButton register;
 
-	//娉ㄥ唽鏃剁敤鍒扮殑缁勪欢
+	//注册时用到的组件
 	JLabel regUsername;
 	JLabel regPassword;
 	JTextField regUsernameInput;
 	JPasswordField regPasswordInput;
 	JButton regBtn;
 
-	//鏄剧ず鐘舵�佸拰缁撴灉鐨勭粍浠�
+	//显示状态和结果的组件
 	JLabel feedback;
 	JLabel feedbackDisplay;
 	JLabel msgNumber;
@@ -63,7 +63,7 @@ public class Client extends JFrame{
 	JLabel loginFail;
 	JLabel loginFailDisplay;
 
-	//鏄剧ず娑堟伅鍜屽彂閫佹秷鎭粍浠�
+	//显示消息和发送消息组件
 	JLabel msgDisplayLabel;
 	JTextArea msgDisplay;
 	JLabel msgSentLabel;
@@ -82,7 +82,7 @@ public class Client extends JFrame{
 
 		loginFrame = new JFrame();
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		loginFrame.setTitle("鐧婚檰");
+		loginFrame.setTitle("登陆");
 		loginFrame.setBounds(50, 50, 300, 200);
 
 		JPanel totalpanel = new JPanel();
@@ -91,19 +91,19 @@ public class Client extends JFrame{
 		loginPanel.setLayout(new GridLayout(3, 1));
 		loginPanel.setBounds(0, 50, 300, 150);
 
-		currentState = new JLabel("褰撳墠鐘舵��:");
-		currentStateDisplay = new JLabel("鏈櫥褰�");
+		currentState = new JLabel("当前状态:");
+		currentStateDisplay = new JLabel("未登录");
 		JPanel topPanel = new JPanel();
 		topPanel.add(currentState);
 		topPanel.add(currentStateDisplay);
 		topPanel.setBounds(200, 0, 100, 20);
 
-		username = new JLabel("鐢ㄦ埛鍚� :");
-		password = new JLabel("瀵�   鐮� :");
+		username = new JLabel("用户名 :");
+		password = new JLabel("密   码 :");
 		usernameInput = new JTextField(10);
 		passwordInput = new JPasswordField(10);
-		login = new JButton("鐧婚檰");
-		register = new JButton("娉ㄥ唽");
+		login = new JButton("登陆");
+		register = new JButton("注册");
 
 		JPanel loginPanel1 = new JPanel();
 		loginPanel1.add(username);
@@ -134,16 +134,16 @@ public class Client extends JFrame{
 				// TODO Auto-generated method stub
 				final JFrame tempFrame = new JFrame();
 				tempFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				tempFrame.setTitle("娉ㄥ唽");
+				tempFrame.setTitle("注册");
 				tempFrame.setBounds(50, 50, 300, 200);
 				JPanel tempPanel = new JPanel();
 				tempPanel.setLayout(new GridLayout(3, 1));
 
-				regUsername = new JLabel("鐢ㄦ埛鍚� :");
-				regPassword = new JLabel("瀵�   鐮� :");
+				regUsername = new JLabel("用户名 :");
+				regPassword = new JLabel("密   码 :");
 				regUsernameInput = new JTextField(10);
 				regPasswordInput = new JPasswordField(10);
-				regBtn = new JButton("娉ㄥ唽");
+				regBtn = new JButton("注册");
 
 				JPanel regPanel1 = new JPanel();
 				regPanel1.add(regUsername);
@@ -159,8 +159,8 @@ public class Client extends JFrame{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						String strUsername = regUsernameInput.getText();//娉ㄥ唽鏃惰幏鍙栫殑鐢ㄦ埛鍚�
-						String strPassword = regPasswordInput.getText();//娉ㄥ唽鏃惰幏鍙栫殑瀵嗙爜
+						String strUsername = regUsernameInput.getText();//注册时获取的用户名
+						String strPassword = regPasswordInput.getText();//注册时获取的密码
 						tempFrame.setVisible(false);
 					}
 				});
@@ -189,7 +189,7 @@ public class Client extends JFrame{
 		loginFrame.setVisible(true);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("瀹㈡埛绔�");
+		this.setTitle("客户端");
 		this.setBounds(10, 10, 600, 700);
 		name="";
 		status=true;
@@ -200,14 +200,14 @@ public class Client extends JFrame{
 		panel.setLayout(null);
 		panel.setBounds(0,0,600,700);
 
-		msgNumber = new JLabel("宸插彂閫佹秷鎭暟鐩�:");
+		msgNumber = new JLabel("已发送消息数目:");
 		msgNumberDisplay = new JLabel("0");
 
 		/*JPanel subPanel1 = new JPanel();
 		subPanel1.add(currentState);
 		subPanel1.add(currentStateDisplay);*/
-		feedback = new JLabel("鍙嶉缁撴灉:");
-		feedbackDisplay = new JLabel("绌�");
+		feedback = new JLabel("反馈结果:");
+		feedbackDisplay = new JLabel("空");
 
 		JPanel subPanel5 = new JPanel();
 		subPanel5.setLayout(new GridLayout(1,2));
@@ -226,10 +226,10 @@ public class Client extends JFrame{
 
 		JPanel subRightPanel = new JPanel();
 
-		loginSuccessful = new JLabel("鐧婚檰鎴愬姛娆℃暟:");
+		loginSuccessful = new JLabel("登陆成功次数:");
 		loginSuccessfulDisplay = new JLabel("0");
 
-		loginFail = new JLabel("鐧婚檰澶辫触娆℃暟:");
+		loginFail = new JLabel("登陆失败次数:");
 		loginFailDisplay = new JLabel("0");
 
 		JPanel subPanel7 = new JPanel();
@@ -254,7 +254,7 @@ public class Client extends JFrame{
 		panel.add(subPanel8);
 		panel.add(subPanel5);
 
-		msgDisplayLabel = new JLabel("娑堟伅鏄剧ず妗�");
+		msgDisplayLabel = new JLabel("消息显示框");
 		msgDisplay = new JTextArea();
 		msgDisplay.setLineWrap(true);
 		msgDisplay.setEditable(false);
@@ -264,9 +264,9 @@ public class Client extends JFrame{
 		panel.add(msgDisplayLabel);
 		panel.add(msgDisplay);
 
-		msgSentLabel = new JLabel("娑堟伅鍙戦�佹");
+		msgSentLabel = new JLabel("消息发送框");
 		msgSent = new JTextArea();
-		sentButton = new JButton("鍙戦��");
+		sentButton = new JButton("发送");
 
 		msgSent.setLineWrap(true);
 		msgSentLabel.setBounds(20, 380, 100, 20);
@@ -361,7 +361,7 @@ public class Client extends JFrame{
 							System.out.println(isLogin+"  "+topicName+ " "+ status+txtMsg.getText());
 							if(!isLogin){
 								if(status){
-									if(feedbackDisplay.getText().equals("鐧婚檰鎴愬姛")){
+									if(feedbackDisplay.getText().equals("登陆成功")){
 										msgDisplay.setText(txtMsg.getText());
 
 									}
@@ -369,14 +369,14 @@ public class Client extends JFrame{
 
 							}else{
 
-								feedbackDisplay.setText("鐧婚檰鎴愬姛");
+								feedbackDisplay.setText("登陆成功");
 
 								if(txtMsg.getText().equals("200")){
 
 									//alredy login
 									Client.this.setVisible(true);
 									//loginFrame.setVisible(false);
-									currentStateDisplay.setText("宸茬櫥褰�");
+									currentStateDisplay.setText("已登录");
 									performanceManager.successTime++;
 									loginSuccessfulDisplay.setText(String.valueOf(performanceManager.successTime));
 								}else{
