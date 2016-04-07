@@ -274,10 +274,7 @@ public class Client extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String str = msgSent.getText();
-				licenseManager.CapacityCheck();
-				//TODO MAKE IT public
-				msgNumberDisplay.setText(String.valueOf(""));
-				//msgDisplay.setText(str);   //显示到消息显示框
+				msgNumberDisplay.setText(String.valueOf(licenseManager.getCountingCapacity()));
 				status=false;
 				sendMsg(str,"Ericsson",false);
 			}

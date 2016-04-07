@@ -15,6 +15,8 @@ public class LicenseManager {
     private long lastRequestTime;
 
 
+    public int getCountingCapacity () {return CapacityCounting;}
+
     public void ThroughputInit(int _max,long _time,int _initCounting)
     {
         ThroughputMax = _max;
