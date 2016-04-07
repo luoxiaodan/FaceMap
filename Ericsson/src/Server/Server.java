@@ -17,12 +17,19 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import com.HaroldLIU.PerformanceManager;
+
+import Configuration.Configuration;
+
 import com.HaroldLIU.LicenseManager;
 
 /**
  * Created by Harold_LIU on 3/20/16.
  */
 public class Server {
+	//需要配置变量
+	static public String port;
+	static public int timeGap;
+	static public int maxRequestTimes;
 
     static private List<User> users = new ArrayList<User>();
     static private Server server;
@@ -46,7 +53,7 @@ public class Server {
     {
         userInit();
         performanceManager.start();
-        licenseManager.ThroughputInit(5,1000,0);
+        licenseManager.ThroughputInit(timeGap,maxRequestTimes,0);
         licenseManager.CapacityInit(100,0);
     }
 
@@ -127,7 +134,7 @@ public class Server {
     }
     public void ListenMsg(){
 
-    	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+    	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(port);
         Connection connection;
 		try {
 			connection = factory.createConnection();
@@ -178,7 +185,7 @@ public class Server {
 
     public  void sendMsg(String msgText,String toipcName){
         try {
-    	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+    	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(port);
 
 		Connection connection = factory.createConnection();
 
@@ -199,6 +206,10 @@ public class Server {
 			}
     }
     public static void main(String[] args) throws Exception {
+    	port = "tcp://localhost:" + Configuration.getPort();
+    	timeGap = Integer.parseInt(Configuration.getTimeGap());
+    	maxRequestTimes = Integer.parseInt(Configuration.getMaxRequestTimes());
+    	
     	Server server=Server.sharedServer();
     	Listen userName=server.new Listen("userName");
     	userName.start();
