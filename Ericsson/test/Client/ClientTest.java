@@ -1,6 +1,6 @@
 package Client;
 
-import Topic.MySubscriber;
+import com.TopicLuo.MySubscriber;
 import junit.framework.TestCase;
 
 /**
@@ -17,7 +17,7 @@ public class ClientTest extends TestCase {
         Client.Listen mainListen=client.new Listen("Ericsson",false);
         mainListen.start();
         client.name=String.valueOf(ClientCount);
-       Client.Listen loginListen = client.new Listen(client.name,true);
+        Client.Listen loginListen = client.new Listen(client.name,true);
         //Listen loginListen = client.new Listen("sb",true);
 
         loginListen.start();

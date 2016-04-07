@@ -17,10 +17,10 @@ public class PerformanceManager {
     private class WriterTask extends TimerTask {
         //写入文件
         private  boolean writeToFile(int successTime,int failTime) {
-            String currentMins = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+            String currentMins = new SimpleDateFormat("yyyy MM dd HH:mm:ss").format(Calendar.getInstance().getTime());
             String needToWrite = "Valid Time:"+successTime + "\t" +"Invalid Time:"+ failTime + "\t" +"Total:"+(successTime+failTime)+"\t"+"Date:"+ currentMins + "\n";
             try {
-                FileWriter writer = new FileWriter(path, true);
+                FileWriter writer = new FileWriter(path+currentMins+"Report.txt", true);
                 writer.write(needToWrite);
                 System.out.println(needToWrite);
                 writer.close();
@@ -39,7 +39,7 @@ public class PerformanceManager {
         delay = _delay;
     }
     /**
-     * path: 文件的位置
+     * path: 文件的所在的目录，文件夹
      * delay: 多久写入一次 (单位为毫秒)
      */
     public  void start()
@@ -54,7 +54,7 @@ public class PerformanceManager {
 
     public static void main(String[] args) {
 
-        PerformanceManager performanceManager = new PerformanceManager("/Users/Harold_LIU/Desktop/testLog.txt", 5 * 1000);
+        PerformanceManager performanceManager = new PerformanceManager("/Users/Harold_LIU/Desktop/", 5 * 1000);
         performanceManager.start();
         performanceManager.successTime = 12;
 

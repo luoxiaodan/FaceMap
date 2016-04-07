@@ -1,5 +1,3 @@
-package Client;
-
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -23,10 +21,10 @@ import com.HaroldLIU.LicenseManager;
 import com.HaroldLIU.PerformanceManager;
 
 public class Client extends JFrame{
-	//±£´æÓÃ»§Ãû
+	//ä¿å­˜ç”¨æˆ·å
 	public String staticUsername;
 
-	//µÇÂ½JFrame
+	//ç™»é™†JFrame
 	public JFrame loginFrame;
 	JLabel currentState;
 	JLabel currentStateDisplay;
@@ -37,14 +35,14 @@ public class Client extends JFrame{
 	JButton login;
 	JButton register;
 
-	//×¢²áÊ±ÓÃµ½µÄ×é¼ş
+	//æ³¨å†Œæ—¶ç”¨åˆ°çš„ç»„ä»¶
 	JLabel regUsername;
 	JLabel regPassword;
 	JTextField regUsernameInput;
 	JPasswordField regPasswordInput;
 	JButton regBtn;
 
-	//ÏÔÊ¾×´Ì¬ºÍ½á¹ûµÄ×é¼ş
+	//æ˜¾ç¤ºçŠ¶æ€å’Œç»“æœçš„ç»„ä»¶
 	JLabel feedback;
 	JLabel feedbackDisplay;
 	JLabel msgNumber;
@@ -56,7 +54,7 @@ public class Client extends JFrame{
 	JLabel loginFail;
 	JLabel loginFailDisplay;
 
-	//ÏÔÊ¾ÏûÏ¢ºÍ·¢ËÍÏûÏ¢×é¼ş
+	//æ˜¾ç¤ºæ¶ˆæ¯å’Œå‘é€æ¶ˆæ¯ç»„ä»¶
 	JLabel msgDisplayLabel;
 	JTextArea msgDisplay;
 	JLabel msgSentLabel;
@@ -66,7 +64,7 @@ public class Client extends JFrame{
 	String name;
 
 	LicenseManager licenseManager = new LicenseManager();
-    PerformanceManager performanceManager = new PerformanceManager("/Users/Harold_LIU/Desktop/ClientLog.txt",60*1000);
+	PerformanceManager performanceManager = new PerformanceManager("/Users/Harold_LIU/Desktop/ClientLog.txt",60*1000);
 
 	public Client(){
 		super();
@@ -75,7 +73,7 @@ public class Client extends JFrame{
 
 		loginFrame = new JFrame();
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		loginFrame.setTitle("µÇÂ½");
+		loginFrame.setTitle("ç™»é™†");
 		loginFrame.setBounds(50, 50, 300, 200);
 
 		JPanel totalpanel = new JPanel();
@@ -84,19 +82,19 @@ public class Client extends JFrame{
 		loginPanel.setLayout(new GridLayout(3, 1));
 		loginPanel.setBounds(0, 50, 300, 150);
 
-		currentState = new JLabel("µ±Ç°×´Ì¬:");
-		currentStateDisplay = new JLabel("Î´µÇÂ¼");
+		currentState = new JLabel("å½“å‰çŠ¶æ€:");
+		currentStateDisplay = new JLabel("æœªç™»å½•");
 		JPanel topPanel = new JPanel();
 		topPanel.add(currentState);
 		topPanel.add(currentStateDisplay);
 		topPanel.setBounds(200, 0, 100, 20);
 
-		username = new JLabel("ÓÃ»§Ãû :");
-		password = new JLabel("ÃÜ   Âë :");
+		username = new JLabel("ç”¨æˆ·å :");
+		password = new JLabel("å¯†   ç  :");
 		usernameInput = new JTextField(10);
 		passwordInput = new JPasswordField(10);
-		login = new JButton("µÇÂ½");
-		register = new JButton("×¢²á");
+		login = new JButton("ç™»é™†");
+		register = new JButton("æ³¨å†Œ");
 
 		JPanel loginPanel1 = new JPanel();
 		loginPanel1.add(username);
@@ -127,16 +125,16 @@ public class Client extends JFrame{
 				// TODO Auto-generated method stub
 				final JFrame tempFrame = new JFrame();
 				tempFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				tempFrame.setTitle("×¢²á");
+				tempFrame.setTitle("æ³¨å†Œ");
 				tempFrame.setBounds(50, 50, 300, 200);
 				JPanel tempPanel = new JPanel();
 				tempPanel.setLayout(new GridLayout(3, 1));
 
-				regUsername = new JLabel("ÓÃ»§Ãû :");
-				regPassword = new JLabel("ÃÜ   Âë :");
+				regUsername = new JLabel("ç”¨æˆ·å :");
+				regPassword = new JLabel("å¯†   ç  :");
 				regUsernameInput = new JTextField(10);
 				regPasswordInput = new JPasswordField(10);
-				regBtn = new JButton("×¢²á");
+				regBtn = new JButton("æ³¨å†Œ");
 
 				JPanel regPanel1 = new JPanel();
 				regPanel1.add(regUsername);
@@ -152,8 +150,8 @@ public class Client extends JFrame{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						String strUsername = regUsernameInput.getText();//×¢²áÊ±»ñÈ¡µÄÓÃ»§Ãû
-						String strPassword = regPasswordInput.getText();//×¢²áÊ±»ñÈ¡µÄÃÜÂë
+						String strUsername = regUsernameInput.getText();//æ³¨å†Œæ—¶è·å–çš„ç”¨æˆ·å
+						String strPassword = regPasswordInput.getText();//æ³¨å†Œæ—¶è·å–çš„å¯†ç 
 						tempFrame.setVisible(false);
 					}
 				});
@@ -182,7 +180,7 @@ public class Client extends JFrame{
 		loginFrame.setVisible(true);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("¿Í»§¶Ë");
+		this.setTitle("å®¢æˆ·ç«¯");
 		this.setBounds(10, 10, 600, 700);
 		name="";
 		status=true;
@@ -193,14 +191,14 @@ public class Client extends JFrame{
 		panel.setLayout(null);
 		panel.setBounds(0,0,600,700);
 
-		msgNumber = new JLabel("ÒÑ·¢ËÍÏûÏ¢ÊıÄ¿:");
+		msgNumber = new JLabel("å·²å‘é€æ¶ˆæ¯æ•°ç›®:");
 		msgNumberDisplay = new JLabel("0");
 
 		/*JPanel subPanel1 = new JPanel();
 		subPanel1.add(currentState);
 		subPanel1.add(currentStateDisplay);*/
-		feedback = new JLabel("·´À¡½á¹û:");
-		feedbackDisplay = new JLabel("¿Õ");
+		feedback = new JLabel("åé¦ˆç»“æœ:");
+		feedbackDisplay = new JLabel("ç©º");
 
 		JPanel subPanel5 = new JPanel();
 		subPanel5.setLayout(new GridLayout(1,2));
@@ -219,10 +217,10 @@ public class Client extends JFrame{
 
 		JPanel subRightPanel = new JPanel();
 
-		loginSuccessful = new JLabel("µÇÂ½³É¹¦´ÎÊı:");
+		loginSuccessful = new JLabel("ç™»é™†æˆåŠŸæ¬¡æ•°:");
 		loginSuccessfulDisplay = new JLabel("0");
 
-		loginFail = new JLabel("µÇÂ½Ê§°Ü´ÎÊı:");
+		loginFail = new JLabel("ç™»é™†å¤±è´¥æ¬¡æ•°:");
 		loginFailDisplay = new JLabel("0");
 
 		JPanel subPanel7 = new JPanel();
@@ -247,7 +245,7 @@ public class Client extends JFrame{
 		panel.add(subPanel8);
 		panel.add(subPanel5);
 
-		msgDisplayLabel = new JLabel("ÏûÏ¢ÏÔÊ¾¿ò");
+		msgDisplayLabel = new JLabel("æ¶ˆæ¯æ˜¾ç¤ºæ¡†");
 		msgDisplay = new JTextArea();
 		msgDisplay.setLineWrap(true);
 		msgDisplay.setEditable(false);
@@ -257,9 +255,9 @@ public class Client extends JFrame{
 		panel.add(msgDisplayLabel);
 		panel.add(msgDisplay);
 
-		msgSentLabel = new JLabel("ÏûÏ¢·¢ËÍ¿ò");
+		msgSentLabel = new JLabel("æ¶ˆæ¯å‘é€æ¡†");
 		msgSent = new JTextArea();
-		sentButton = new JButton("·¢ËÍ");
+		sentButton = new JButton("å‘é€");
 
 		msgSent.setLineWrap(true);
 		msgSentLabel.setBounds(20, 380, 100, 20);
@@ -274,14 +272,7 @@ public class Client extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String str = msgSent.getText();
-<<<<<<< HEAD
 				msgNumberDisplay.setText(String.valueOf(licenseManager.getCountingCapacity()));
-=======
-				licenseManager.CapacityCheck();
-				//TODO MAKE IT public
-				msgNumberDisplay.setText(String.valueOf(""));
-				//msgDisplay.setText(str);   //ÏÔÊ¾µ½ÏûÏ¢ÏÔÊ¾¿ò
->>>>>>> 6593b099b4d63fb652352add9753b0983c67e4d5
 				status=false;
 				sendMsg(str,"Ericsson",false);
 			}
@@ -361,7 +352,7 @@ public class Client extends JFrame{
 							System.out.println(isLogin+"  "+topicName+ " "+ status+txtMsg.getText());
 							if(!isLogin){
 								if(status){
-									if(feedbackDisplay.getText().equals("µÇÂ½³É¹¦")){
+									if(feedbackDisplay.getText().equals("ç™»é™†æˆåŠŸ")){
 										msgDisplay.setText(txtMsg.getText());
 
 									}
@@ -369,14 +360,14 @@ public class Client extends JFrame{
 
 							}else{
 
-								feedbackDisplay.setText("µÇÂ½³É¹¦");
+								feedbackDisplay.setText("ç™»é™†æˆåŠŸ");
 
 								if(txtMsg.getText().equals("200")){
 
 									//alredy login
 									Client.this.setVisible(true);
 									//loginFrame.setVisible(false);
-									currentStateDisplay.setText("ÒÑµÇÂ¼");
+									currentStateDisplay.setText("å·²ç™»å½•");
 									performanceManager.successTime++;
 									loginSuccessfulDisplay.setText(String.valueOf(performanceManager.successTime));
 								}else{
