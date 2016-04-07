@@ -30,7 +30,7 @@ public class Server {
     String passWord;
     boolean state=false;
 
-    PerformanceManager performanceManager = new PerformanceManager("/Users/Harold_LIU/Desktop/testLog.txt",60*1000);
+    PerformanceManager performanceManager = new PerformanceManager("testLog.txt",60*1000);
     LicenseManager licenseManager = new LicenseManager();
 
     private void userInit()
