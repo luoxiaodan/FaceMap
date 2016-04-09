@@ -11,7 +11,7 @@ import java.util.TimerTask;
 public class PerformanceManager {
 
     public int successTime = 0, failTime = 0;
-    private final String path;
+    private  String path;
     private final long delay;
 
     private class WriterTask extends TimerTask {
@@ -31,6 +31,11 @@ public class PerformanceManager {
             return true;
         }
         public void run(){writeToFile(successTime,failTime);}
+    }
+
+    public void setPath(String newPath)
+    {
+        path = newPath;
     }
 
     public PerformanceManager(String _path, long _delay)
@@ -53,10 +58,8 @@ public class PerformanceManager {
     }
 
     public static void main(String[] args) {
-
         PerformanceManager performanceManager = new PerformanceManager("/Users/Harold_LIU/Desktop/", 5 * 1000);
         performanceManager.start();
         performanceManager.successTime = 12;
-
     }
 }

@@ -26,7 +26,7 @@ import com.HaroldLIU.LicenseManager;
  * Created by Harold_LIU on 3/20/16.
  */
 public class Server {
-	//ÐèÒªÅäÖÃ±äÁ¿
+	//ï¿½ï¿½Òªï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½
 	static public String port;
 	static public int timeGap;
 	static public int maxRequestTimes;
@@ -72,9 +72,6 @@ public class Server {
         if (server == null)
         {
             server = new Server();
-
-
-
         }
         return server;
     }
@@ -209,7 +206,7 @@ public class Server {
     	port = "tcp://localhost:" + Configuration.getPort();
     	timeGap = Integer.parseInt(Configuration.getTimeGap());
     	maxRequestTimes = Integer.parseInt(Configuration.getMaxRequestTimes());
-    	
+
     	Server server=Server.sharedServer();
     	Listen userName=server.new Listen("userName");
     	userName.start();
