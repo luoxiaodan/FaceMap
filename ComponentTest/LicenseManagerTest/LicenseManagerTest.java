@@ -16,8 +16,8 @@ public class LicenseManagerTest {
 	@Test
 	public void testThroughputCheck() {
 		//case 1
-		licenseManager.ThroughputInit(8,1000,0);
-		for (int i = 0;i<10;i++)
+		licenseManager.ThroughputInit(3,1000,0);
+		for (int i = 0;i<5;i++)
         {
             try {
                 Thread.sleep(200);
@@ -26,7 +26,7 @@ public class LicenseManagerTest {
             {
                 e.printStackTrace();
             }
-            assertTrue(licenseManager.ThroughputCheck());
+            System.out.println(licenseManager.ThroughputCheck());
         }
 		
 		//case2
@@ -57,7 +57,7 @@ public class LicenseManagerTest {
             assertTrue(licenseManager.ThroughputCheck());
         }
 		
-		//case5
+		//case4
 		licenseManager.ThroughputInit(15,800,3);
 		for (int i = 0;i<12;i++)
         {
@@ -71,7 +71,7 @@ public class LicenseManagerTest {
             assertTrue(licenseManager.ThroughputCheck());
         }
 		
-		//case6
+		//case5
 		licenseManager.ThroughputInit(40,1000,20);
 		for (int i = 0;i<20;i++)
         {
@@ -110,7 +110,7 @@ public class LicenseManagerTest {
 			 assertTrue(licenseManager.CapacityCheck());
 	        }
 		 
-		 //case 5
+		 //case 4
 		 licenseManager.CapacityInit(10, 5);
 		 for (int i = 0; i<5;i++)
 	        {
