@@ -26,7 +26,7 @@ public class LicenseManagerTest {
             {
                 e.printStackTrace();
             }
-            assertEquals(licenseManager.ThroughputCheck(),true);
+            assertTrue(licenseManager.ThroughputCheck());
         }
 		
 		//case2
@@ -40,7 +40,7 @@ public class LicenseManagerTest {
             {
                 e.printStackTrace();
             }
-            assertEquals(licenseManager.ThroughputCheck(),true);
+            assertTrue(licenseManager.ThroughputCheck());
         }
 		
 		//case3
@@ -54,7 +54,7 @@ public class LicenseManagerTest {
             {
                 e.printStackTrace();
             }
-            assertEquals(licenseManager.ThroughputCheck(),true);
+            assertTrue(licenseManager.ThroughputCheck());
         }
 		
 		//case5
@@ -68,7 +68,7 @@ public class LicenseManagerTest {
             {
                 e.printStackTrace();
             }
-            assertEquals(licenseManager.ThroughputCheck(),true);
+            assertTrue(licenseManager.ThroughputCheck());
         }
 		
 		//case6
@@ -82,7 +82,7 @@ public class LicenseManagerTest {
             {
                 e.printStackTrace();
             }
-            assertEquals(licenseManager.ThroughputCheck(),true);
+            assertTrue(licenseManager.ThroughputCheck());
         }
 		 
 	}
@@ -93,28 +93,28 @@ public class LicenseManagerTest {
 		licenseManager.CapacityInit(10, 0);
 		 for (int i = 0; i<10;i++)
 	        {
-			 assertEquals(licenseManager.CapacityCheck(),true);
+			 assertTrue(licenseManager.CapacityCheck());
 	        }
 		 
 		 //case 2
 		 licenseManager.CapacityInit(20, 0);
 		 for (int i = 0; i<10;i++)
 	        {
-			 assertEquals(licenseManager.CapacityCheck(),true);
+			 assertTrue(licenseManager.CapacityCheck());
 	        }
 		 
 		 //case 3
 		 licenseManager.CapacityInit(20, 3);
 		 for (int i = 0; i<10;i++)
 	        {
-			 assertEquals(licenseManager.CapacityCheck(),true);
+			 assertTrue(licenseManager.CapacityCheck());
 	        }
 		 
 		 //case 5
 		 licenseManager.CapacityInit(10, 5);
 		 for (int i = 0; i<5;i++)
 	        {
-			 assertEquals(licenseManager.CapacityCheck(),true);
+			 assertTrue(licenseManager.CapacityCheck());
 	        }
 
 		 
