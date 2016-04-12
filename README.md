@@ -27,7 +27,7 @@
 ⚠️构件运行的java版本为:1.8.
 
 - [Configuration Management Model](https://github.com/Gavin96/SoftwareReuse/blob/master/%E5%A4%8D%E7%94%A8%E6%9E%84%E4%BB%B6%2FConfigurationManager%2Fsrc%2FConfiguration%2FConfiguration.java)
-读取文件中的系统配置指标，并且提供实时地查询和动态加载功能.**👉[jar包]https://github.com/Gavin96/SoftwareReuse/blob/master/Jar%2FConfiguration.jar?raw=true)**,同时需要引入对于JSON数据进行处理的**[jar包](https://github.com/Gavin96/SoftwareReuse/tree/master/Jar/JSON)**
+读取文件中的系统配置指标，并且提供实时地查询和动态加载功能.**👉[jar包](https://github.com/Gavin96/SoftwareReuse/blob/master/Jar%2FConfiguration.jar?raw=true)**,同时需要引入对于JSON数据进行处理的**[jar包](https://github.com/Gavin96/SoftwareReuse/tree/master/Jar/JSON)**
 
 
 - [Performance Management Model](https://github.com/Gavin96/SoftwareReuse/blob/master/%E5%A4%8D%E7%94%A8%E6%9E%84%E4%BB%B6%2FPerformanceManager%2Fsrc%2Fcom%2FHaroldLIU%2FPerformanceManager.java):
