@@ -17,7 +17,7 @@ public class PerformanceManager {
     private class WriterTask extends TimerTask {
         //写入文件
         private  boolean writeToFile(int successTime,int failTime) {
-            String currentMins = new SimpleDateFormat("yyyy MM dd HH:mm:ss").format(Calendar.getInstance().getTime());
+            String currentMins = new SimpleDateFormat("yyyy_MM_dd HH mm ss").format(Calendar.getInstance().getTime());
             String needToWrite = "Valid Time:"+successTime + "\t" +"Invalid Time:"+ failTime + "\t" +"Total:"+(successTime+failTime)+"\t"+"Date:"+ currentMins + "\n";
             try {
                 FileWriter writer = new FileWriter(path+currentMins+"Report.txt", true);

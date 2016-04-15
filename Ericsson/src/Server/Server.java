@@ -40,6 +40,8 @@ public class Server {
     PerformanceManager performanceManager = new PerformanceManager("testLog.txt",60*1000);
     LicenseManager licenseManager = new LicenseManager();
 
+
+
     private void userInit()
     {
         users.add(new User("liu","123",false,0,0,0));
@@ -203,9 +205,9 @@ public class Server {
 			}
     }
     public static void main(String[] args) throws Exception {
-    	port = "tcp://localhost:" + Configuration.getPort();
-    	timeGap = Integer.parseInt(Configuration.getTimeGap());
-    	maxRequestTimes = Integer.parseInt(Configuration.getMaxRequestTimes());
+    	port = "tcp://localhost:61616"; //+ Configuration.getPort();
+    	timeGap = 1000;// Integer.parseInt(1000);
+    	maxRequestTimes = 5;// Integer.parseInt(Configuration.getMaxRequestTimes());
 
     	Server server=Server.sharedServer();
     	Listen userName=server.new Listen("userName");
