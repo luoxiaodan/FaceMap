@@ -20,7 +20,8 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import com.TopicLuo.MySubscriber;
 
-import Configuration.Configuration;
+//import Configuration.Configuration;
+import reuse.cm.ReadJson;
 
 import com.HaroldLIU.LicenseManager;
 import com.HaroldLIU.PerformanceManager;
@@ -413,9 +414,13 @@ public class Client extends JFrame{
 		long ClientCount=MySubscriber.getConsumerCount();
 		Client client = new Client();
 		
-		client.port = "tcp://localhost:" + Configuration.getPort();
-		client.path = Configuration.getPath();
+		//client.port = "tcp://localhost:" + Configuration.getPort();
+		//client.path = Configuration.getPath();
 		//System.out.println(client.port+client.path);
+		
+		client.port = "tcp://localhost:" + ReadJson.GetConfig("port", "C:/sets");
+    	client.path = ReadJson.GetConfig("path", "C:/sets");
+    	client.performanceManager.setPath(client.path);
 		
 		Client.Listen mainListen=client.new Listen("Ericsson",false);
 		mainListen.start();

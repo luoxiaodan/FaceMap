@@ -8,13 +8,6 @@
 	<classpathentry kind="lib" path="E:/Java workspace/SoftwareReuse/Jar/PerformanceManager.jar"/>
 	<classpathentry kind="lib" path="E:/Java workspace/SoftwareReuse/Jar/Topic.jar"/>
 	<classpathentry kind="lib" path="G:/apache-activemq-5.12.1-bin/apache-activemq-5.12.1/activemq-all-5.12.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/asus/Desktop/Configuration.jar"/>
-	<classpathentry kind="lib" path="G:/Java EE/lib/lib/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="G:/Java EE/lib/lib/commons-collections-3.0.jar"/>
-	<classpathentry kind="lib" path="G:/Java EE/lib/lib/commons-lang-2.1.jar"/>
-	<classpathentry kind="lib" path="G:/Java EE/lib/lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="G:/Java EE/lib/lib/ezmorph-1.0.2.jar"/>
-	<classpathentry kind="lib" path="G:/Java EE/lib/lib/json-lib-1.1-jdk13.jar"/>
-	<classpathentry kind="lib" path="G:/Java EE/lib/lib/xom-1.0d10.jar"/>
+	<classpathentry kind="lib" path="E:/Java workspace/Software-Reuse/Components/CM/CM-1.0-SNAPSHOT-jar-with-dependencies.jar/CM-1.0-SNAPSHOT-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

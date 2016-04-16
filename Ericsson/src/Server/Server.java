@@ -18,7 +18,8 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import com.HaroldLIU.PerformanceManager;
 
-import Configuration.Configuration;
+//import Configuration.Configuration;
+import reuse.cm.ReadJson;
 
 import com.HaroldLIU.LicenseManager;
 
@@ -205,10 +206,14 @@ public class Server {
 			}
     }
     public static void main(String[] args) throws Exception {
-    	port = "tcp://localhost:61616"; //+ Configuration.getPort();
-    	timeGap = 1000;// Integer.parseInt(1000);
-    	maxRequestTimes = 5;// Integer.parseInt(Configuration.getMaxRequestTimes());
+    	//port = "tcp://localhost:61616"; //+ Configuration.getPort();
+    	//timeGap = 1000;// Integer.parseInt(1000);
+    	//maxRequestTimes = 5;// Integer.parseInt(Configuration.getMaxRequestTimes());
 
+    	port = "tcp://localhost:" + ReadJson.GetConfig("port", "C:/sets");
+    	timeGap = Integer.parseInt(ReadJson.GetConfig("timeGap", "C:/sets"));
+    	maxRequestTimes = Integer.parseInt(ReadJson.GetConfig("maxRequestTimes", "C:/sets"));
+    	
     	Server server=Server.sharedServer();
     	Listen userName=server.new Listen("userName");
     	userName.start();
