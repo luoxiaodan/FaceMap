@@ -24,7 +24,7 @@ import com.TopicLuo.MySubscriber;
 import reuse.cm.ReadJson;
 
 import com.HaroldLIU.LicenseManager;
-import com.HaroldLIU.PerformanceManager;
+import reuse.pm.PMManager;
 
 public class Client extends JFrame{
 	//端口
@@ -74,8 +74,8 @@ public class Client extends JFrame{
 	String name;
 
 	LicenseManager licenseManager = new LicenseManager();
-	PerformanceManager performanceManager = new PerformanceManager(path,60*1000);
-
+	//PerformanceManager performanceManager = new PerformanceManager(path,60*1000);
+	PMManager pmManager=new PMManager(path,1);
 	public Client(){
 		super();
 
@@ -378,12 +378,14 @@ public class Client extends JFrame{
 									Client.this.setVisible(true);
 									//loginFrame.setVisible(false);
 									currentStateDisplay.setText("已登录");
-									performanceManager.successTime++;
-									loginSuccessfulDisplay.setText(String.valueOf(performanceManager.successTime));
+									//performanceManager.successTime++;
+									pmManager.LogSuccess();
+									//loginSuccessfulDisplay.setText(String.valueOf());
 								}else{
 									//loginFrame.setVisible(true);
-									performanceManager.failTime++;
-									loginFailDisplay.setText(String.valueOf(performanceManager.failTime));
+									//performanceManager.failTime++;
+									pmManager.LogFail();
+									//loginFailDisplay.setText(String.valueOf(performanceManager.failTime));
 								}
 							}
 
@@ -418,9 +420,9 @@ public class Client extends JFrame{
 		//client.path = Configuration.getPath();
 		//System.out.println(client.port+client.path);
 		
-		client.port = "tcp://localhost:" + ReadJson.GetConfig("port", "C:/sets");
-    	client.path = ReadJson.GetConfig("path", "C:/sets");
-    	client.performanceManager.setPath(client.path);
+		client.port = "tcp://localhost:" + ReadJson.GetConfig("port", "/Users/nyt/Downloads/sets.txt");
+    	client.path = ReadJson.GetConfig("path", "/Users/nyt/Downloads/sets.txt");
+    	//client.performanceManager.setPath(client.path);
 		
 		Client.Listen mainListen=client.new Listen("Ericsson",false);
 		mainListen.start();
