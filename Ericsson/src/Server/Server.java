@@ -214,9 +214,9 @@ public class Server {
     	//timeGap = 1000;// Integer.parseInt(1000);
     	//maxRequestTimes = 5;// Integer.parseInt(Configuration.getMaxRequestTimes());
 
-    	port = "tcp://localhost:" + ReadJson.GetConfig("port", "/Users/nyt/Downloads/sets.txt");
-    	timeGap = Integer.parseInt(ReadJson.GetConfig("timeGap", "/Users/nyt/Downloads/sets.txt"));
-    	maxRequestTimes = Integer.parseInt(ReadJson.GetConfig("maxRequestTimes", "/Users/nyt/Downloads/sets.txt"));
+    	port = "tcp://localhost:" + ReadJson.GetConfig("port", "sets.txt");
+    	timeGap = Integer.parseInt(ReadJson.GetConfig("timeGap", "sets.txt"));
+    	maxRequestTimes = Integer.parseInt(ReadJson.GetConfig("maxRequestTimes", "sets.txt"));
     	
     	Server server=Server.sharedServer();
     	Listen userName=server.new Listen("userName");

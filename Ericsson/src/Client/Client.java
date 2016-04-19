@@ -30,7 +30,8 @@ public class Client extends JFrame{
 	//端口
 	public String port;
 	public String path;
-	
+	//收到消息数
+	int receivedCount;
 	//保存用户名
 	public String staticUsername;
 
@@ -80,6 +81,7 @@ public class Client extends JFrame{
 		super();
 
 		licenseManager.CapacityInit(100,0);
+		receivedCount=0;
 
 		loginFrame = new JFrame();
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -285,6 +287,7 @@ public class Client extends JFrame{
 				msgNumberDisplay.setText(String.valueOf(licenseManager.getCountingCapacity()));
 				status=false;
 				sendMsg(str,"Ericsson",false);
+				msgSent.setText("");
 			}
 		});
 		this.add(panel);
@@ -363,7 +366,8 @@ public class Client extends JFrame{
 							if(!isLogin){
 								if(status){
 									if(feedbackDisplay.getText().equals("登陆成功")){
-										msgDisplay.setText(txtMsg.getText());
+										receivedCount++;
+										msgDisplay.setText(msgDisplay.getText()+"No."+receivedCount+":"+txtMsg.getText()+'\n');
 
 									}
 								}
@@ -420,8 +424,8 @@ public class Client extends JFrame{
 		//client.path = Configuration.getPath();
 		//System.out.println(client.port+client.path);
 		
-		client.port = "tcp://localhost:" + ReadJson.GetConfig("port", "/Users/nyt/Downloads/sets.txt");
-    	client.path = ReadJson.GetConfig("path", "/Users/nyt/Downloads/sets.txt");
+		client.port = "tcp://localhost:" + ReadJson.GetConfig("port", "sets.txt");
+    	client.path = ReadJson.GetConfig("path", "sets.txt");
     	//client.performanceManager.setPath(client.path);
 		
 		Client.Listen mainListen=client.new Listen("Ericsson",false);
