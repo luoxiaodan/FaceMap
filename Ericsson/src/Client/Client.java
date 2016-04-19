@@ -284,9 +284,9 @@ public class Client extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String str = msgSent.getText();
-				msgNumberDisplay.setText(String.valueOf(licenseManager.getCountingCapacity()));
 				status=false;
 				sendMsg(str,"Ericsson",false);
+				msgNumberDisplay.setText(String.valueOf(licenseManager.getCountingCapacity()));
 				msgSent.setText("");
 			}
 		});
