@@ -23,7 +23,8 @@ import com.TopicLuo.MySubscriber;
 //import Configuration.Configuration;
 import reuse.cm.ReadJson;
 
-import com.HaroldLIU.LicenseManager;
+//import com.HaroldLIU.LicenseManager;
+import reuse.license.MaxNumOfMessage;
 import reuse.pm.PMManager;
 
 public class Client extends JFrame{
@@ -74,13 +75,14 @@ public class Client extends JFrame{
 
 	String name;
 
-	LicenseManager licenseManager = new LicenseManager();
+	//LicenseManager licenseManager = new LicenseManager();
 	//PerformanceManager performanceManager = new PerformanceManager(path,60*1000);
 	PMManager pmManager=new PMManager(path,1);
 	public Client(){
 		super();
 
-		licenseManager.CapacityInit(100,0);
+		//licenseManager.CapacityInit(100,0);
+		//MaxNumOfMessage maxNumOfMessage = new MaxNumOfMessage(100);
 		receivedCount=0;
 
 		loginFrame = new JFrame();
@@ -286,7 +288,7 @@ public class Client extends JFrame{
 				String str = msgSent.getText();
 				status=false;
 				sendMsg(str,"Ericsson",false);
-				msgNumberDisplay.setText(String.valueOf(licenseManager.getCountingCapacity()));
+				//msgNumberDisplay.setText(String.valueOf(licenseManager.getCountingCapacity()));
 				msgSent.setText("");
 			}
 		});
@@ -309,7 +311,8 @@ public class Client extends JFrame{
 
 			Destination dest = session.createTopic(toipcName);
 			MessageProducer producer = session.createProducer(dest);
-
+			
+			MaxNumOfMessage maxNumOfMessage = new MaxNumOfMessage(100);
 
 			TextMessage msg = session.createTextMessage();
 			msg.setText(msgText);
@@ -319,7 +322,8 @@ public class Client extends JFrame{
 			}
 			else{
 
-				if(licenseManager.CapacityCheck()){
+				//if(licenseManager.CapacityCheck()){
+				if(maxNumOfMessage.Check()){
 
 					producer.send(msg);
 				}else
@@ -378,7 +382,7 @@ public class Client extends JFrame{
 
 								if(txtMsg.getText().equals("200")){
 
-									//alredy login
+									//already login
 									Client.this.setVisible(true);
 									//loginFrame.setVisible(false);
 									currentStateDisplay.setText("已登录");
@@ -424,8 +428,8 @@ public class Client extends JFrame{
 		//client.path = Configuration.getPath();
 		//System.out.println(client.port+client.path);
 		
-		client.port = "tcp://localhost:" + ReadJson.GetConfig("port", "sets.txt");
-    	client.path = ReadJson.GetConfig("path", "sets.txt");
+		client.port = "tcp://localhost:" + ReadJson.GetConfig("port", "D:\\Mars_Workspace\\Ericsson\\sets.txt");
+    	client.path = ReadJson.GetConfig("path", "D:\\Mars_Workspace\\Ericsson\\sets.txt");
     	//client.performanceManager.setPath(client.path);
 		
 		Client.Listen mainListen=client.new Listen("Ericsson",false);
