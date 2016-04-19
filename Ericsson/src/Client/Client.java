@@ -388,12 +388,12 @@ public class Client extends JFrame{
 									currentStateDisplay.setText("已登录");
 									//performanceManager.successTime++;
 									pmManager.LogSuccess();
-									//loginSuccessfulDisplay.setText(String.valueOf());
+									loginSuccessfulDisplay.setText(String.valueOf(PMManager.getValidLoginCount()));
 								}else{
 									//loginFrame.setVisible(true);
 									//performanceManager.failTime++;
 									pmManager.LogFail();
-									//loginFailDisplay.setText(String.valueOf(performanceManager.failTime));
+									loginFailDisplay.setText(String.valueOf(PMManager.getInValidLoginCount()));
 								}
 							}
 
@@ -428,8 +428,8 @@ public class Client extends JFrame{
 		//client.path = Configuration.getPath();
 		//System.out.println(client.port+client.path);
 		
-		client.port = "tcp://localhost:" + ReadJson.GetConfig("port", "D:\\Mars_Workspace\\Ericsson\\sets.txt");
-    	client.path = ReadJson.GetConfig("path", "D:\\Mars_Workspace\\Ericsson\\sets.txt");
+		client.port = "tcp://localhost:" + ReadJson.GetConfig("port", "/Users/Harold_LIU/Desktop/sets.txt");
+    	client.path = ReadJson.GetConfig("path", "/Users/Harold_LIU/Desktop/sets.txt");
     	//client.performanceManager.setPath(client.path);
 		
 		Client.Listen mainListen=client.new Listen("Ericsson",false);

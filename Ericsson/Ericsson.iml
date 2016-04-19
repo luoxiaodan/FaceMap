@@ -100,7 +100,7 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../Jar/重构pm模块jar包/1PM-1.0-SNAPSHOT.jar!/" />
@@ -108,6 +108,28 @@
         <JAVADOC />
         <SOURCES>
           <root url="jar://$MODULE_DIR$/../Jar/重构pm模块jar包/1PM-1.0-SNAPSHOT.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../Jar/重构pm模块jar包/PM-1.0-SNAPSHOT-jar-with-dependencies.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../Jar/重构pm模块jar包/PM-1.0-SNAPSHOT-jar-with-dependencies.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../Jar/重构License模块jar包/jar0414_License-1.0-SNAPSHOT-jar-with-dependencies.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../Jar/重构License模块jar包/jar0414_License-1.0-SNAPSHOT-jar-with-dependencies.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
