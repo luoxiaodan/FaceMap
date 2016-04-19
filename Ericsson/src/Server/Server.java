@@ -19,7 +19,8 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 //import Configuration.Configuration;
 import reuse.cm.ReadJson;
 import reuse.pm.PMManager;
-import com.HaroldLIU.LicenseManager;
+//import com.HaroldLIU.LicenseManager;
+import reuse.license.MaxNumOfMessage;
 
 /**
  * Created by Harold_LIU on 3/20/16.
@@ -38,7 +39,7 @@ public class Server {
 
     //PerformanceManager performanceManager = new PerformanceManager("testLog.txt",60*1000);
     PMManager pmManager=new PMManager("/Users/nyt/Desktop/",1);
-    LicenseManager licenseManager = new LicenseManager();
+   // LicenseManager licenseManager = new LicenseManager();
 
 
 
@@ -56,8 +57,9 @@ public class Server {
         userInit();
         //performanceManager.start();
         pmManager.startRecord();
-        licenseManager.ThroughputInit(timeGap,maxRequestTimes,0);
-        licenseManager.CapacityInit(100,0);
+        //licenseManager.ThroughputInit(timeGap,maxRequestTimes,0);
+       // licenseManager.CapacityInit(100,0);
+      //MaxNumOfMessage maxNumOfMessage = new MaxNumOfMessage(100);
     }
 
     private User findUser(String userName)
@@ -81,10 +83,12 @@ public class Server {
 
     public int login (String userName, String password)
     {
+    	MaxNumOfMessage maxNumOfMessage = new MaxNumOfMessage(100);
         User theUser = findUser(userName);
         if(!theUser.equals(null))
         {
-            if (licenseManager.ThroughputCheck())
+            //if (licenseManager.ThroughputCheck())
+        	if (maxNumOfMessage.Check())
             {
                 if (password.equals(theUser.Password)) {
                     //performanceManager.successTime++;
@@ -214,9 +218,9 @@ public class Server {
     	//timeGap = 1000;// Integer.parseInt(1000);
     	//maxRequestTimes = 5;// Integer.parseInt(Configuration.getMaxRequestTimes());
 
-    	port = "tcp://localhost:" + ReadJson.GetConfig("port", "/Users/nyt/Downloads/sets.txt");
-    	timeGap = Integer.parseInt(ReadJson.GetConfig("timeGap", "/Users/nyt/Downloads/sets.txt"));
-    	maxRequestTimes = Integer.parseInt(ReadJson.GetConfig("maxRequestTimes", "/Users/nyt/Downloads/sets.txt"));
+    	port = "tcp://localhost:" + ReadJson.GetConfig("port", "D:\\Mars_Workspace\\Ericsson\\sets.txt");
+    	timeGap = Integer.parseInt(ReadJson.GetConfig("timeGap", "D:\\Mars_Workspace\\Ericsson\\sets.txt"));
+    	maxRequestTimes = Integer.parseInt(ReadJson.GetConfig("maxRequestTimes", "D:\\Mars_Workspace\\Ericsson\\sets.txt"));
     	
     	Server server=Server.sharedServer();
     	Listen userName=server.new Listen("userName");
