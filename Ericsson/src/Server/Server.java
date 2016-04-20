@@ -253,6 +253,7 @@ public class Server {
     	Listen receivedMsg=server.new Listen("Ericsson");
     	receivedMsg.start();
     	System.out.println("--------Server Start------");
+    	
 
     }
 
