@@ -373,7 +373,7 @@ public class Client extends JFrame{
 						TextMessage txtMsg = (TextMessage) msg;
 
 						try {
-							System.out.println(isLogin+"  "+topicName+ " "+ status+txtMsg.getText());
+							//System.out.println(isLogin+"  "+topicName+ " "+ status+txtMsg.getText());
 							if(!isLogin){
 								if(status){
 									if(feedbackDisplay.getText().equals("登陆成功")){
