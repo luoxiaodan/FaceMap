@@ -182,13 +182,12 @@ public class Server {
 						if(!state) state=true;
 					}
 						if(state){
-							System.out.println(userName);
-							int pos=userName.indexOf(':');
-							System.out.println("pos:"+pos);
+							
+							int pos=userName.indexOf(':');//除掉消息前面的Msg from xxx：
+							
 							int pos2=userName.substring(pos+1,userName.length()).indexOf(':');
 							String name=userName.substring(pos+1, pos+pos2+1);
-							System.out.println("name:"+name);
-							System.out.println("pos2:"+pos2);
+							
 							String username=userName.substring(pos+pos2+2,userName.length());
 							String password=passWord.substring(pos+pos2+2,passWord.length());
 							int back=login(username,password);
