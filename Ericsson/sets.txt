@@ -1,1 +1,1 @@
-{"port":"61616","timeGap":"1000","maxRequestTimes":"5","path":"E:\\","zipPath":"E:\\"}
+{"port":"61616","timeGap":"1000","maxRequestTimes":"5","path":"E:\\","zipPath":"E:\\","ServerMsgPath":"E:\\","ClientMsgPath":"E:\\"}

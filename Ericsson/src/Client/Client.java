@@ -316,7 +316,7 @@ public class Client extends JFrame{
 			MaxNumOfMessage maxNumOfMessage = new MaxNumOfMessage(100);
 
 			TextMessage msg = session.createTextMessage();
-			msg.setText(msgText);
+			msg.setText("Msg from "+staticUsername+":"+msgText);
 			if(isLogin)
 			{
 				producer.send(msg);

@@ -1,7 +1,9 @@
 package Server;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.jms.Connection;
@@ -38,7 +40,8 @@ public class Server {
     String userName;
     String passWord;
     boolean state=false;
-
+    String msgPath=ReadJson.GetConfig("ServerMsgPath", "sets.txt");
+    String fileName = new SimpleDateFormat("yyyy_MM_dd").format(Calendar.getInstance().getTime());
     PerformanceManager performanceManager = new PerformanceManager(ReadJson.GetConfig("path", "sets.txt"),ReadJson.GetConfig("zipPath", "sets.txt"),60*1000);
 
     // PMManager pmManager=new PMManager("/Users/nyt/Desktop/",1);
@@ -163,10 +166,13 @@ public class Server {
 				TextMessage txtMsg = (TextMessage) msg;
 
 				try {
+					if(topicName.equals("Ericsson")){
+						SaveMsgtoFile(msgPath,fileName+"ReceivedMsgReport.txt",txtMsg.getText());
+					}
 
 					if(topicName.equals("userName")){
 						userName=txtMsg.getText();
-					}else{
+					}else if(topicName.equals("userName")){
 						passWord=txtMsg.getText();
 						if(!state) state=true;
 					}
@@ -230,6 +236,8 @@ public class Server {
     	userName.start();
     	Listen password=server.new Listen("passWord");
     	password.start();
+    	Listen receviedMsg=server.new Listen("Ericsson");
+    	receviedMsg.start();
     	System.out.println("--------Server Start------");
 
     }
