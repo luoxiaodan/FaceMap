@@ -1,7 +1,10 @@
 package Server;
 
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.jms.Connection;
@@ -18,6 +21,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import com.HaroldLIU.PerformanceManager;
 
+import extent.SaveMsgtoFile;
 //import Configuration.Configuration;
 import reuse.cm.ReadJson;
 //import reuse.pm.PMManager;
@@ -38,6 +42,9 @@ public class Server {
     String userName;
     String passWord;
     boolean state=false;
+    public static String msgPath=ReadJson.GetConfig("ServerMsgPath", "sets.txt");;
+	public String fileName=new SimpleDateFormat("yyyy_MM_dd").format(Calendar.getInstance().getTime());
+	
 
     PerformanceManager performanceManager = new PerformanceManager(ReadJson.GetConfig("path", "sets.txt"),ReadJson.GetConfig("zipPath", "sets.txt"),60*1000);
 
@@ -163,6 +170,10 @@ public class Server {
 				TextMessage txtMsg = (TextMessage) msg;
 
 				try {
+					if(topicName.equals("Ericsson")){
+						SaveMsgtoFile.SavetoFile(msgPath,"Server"+fileName+"ReceivedMsgRecord.txt",txtMsg.getText());
+						
+					}else{
 
 					if(topicName.equals("userName")){
 						userName=txtMsg.getText();
@@ -171,18 +182,28 @@ public class Server {
 						if(!state) state=true;
 					}
 						if(state){
+							System.out.println(userName);
 							int pos=userName.indexOf(':');
-							String name=userName.substring(0, pos);
-							String username=userName.substring(pos+1,userName.length());
-							String password=passWord.substring(pos+1,passWord.length());
+							System.out.println("pos:"+pos);
+							int pos2=userName.substring(pos+1,userName.length()).indexOf(':');
+							String name=userName.substring(pos+1, pos+pos2+1);
+							System.out.println("name:"+name);
+							System.out.println("pos2:"+pos2);
+							String username=userName.substring(pos+pos2+2,userName.length());
+							String password=passWord.substring(pos+pos2+2,passWord.length());
 							int back=login(username,password);
 							sendMsg(String.valueOf(back),name);
 							state=false;
 						}
+					}
 					} catch (JMSException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+				
 			}
 		    });
 			} catch (JMSException e1) {
@@ -230,6 +251,8 @@ public class Server {
     	userName.start();
     	Listen password=server.new Listen("passWord");
     	password.start();
+    	Listen receivedMsg=server.new Listen("Ericsson");
+    	receivedMsg.start();
     	System.out.println("--------Server Start------");
 
     }

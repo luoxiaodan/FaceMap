@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
@@ -21,6 +24,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import com.HaroldLIU.PerformanceManager;
 import com.TopicLuo.MySubscriber;
 
+import extent.SaveMsgtoFile;
 //import Configuration.Configuration;
 import reuse.cm.ReadJson;
 
@@ -32,11 +36,13 @@ public class Client extends JFrame{
 	//端口
 	public String port;
 	public String path;
+	public static String msgPath;
+	public String fileName=new SimpleDateFormat("yyyy_MM_dd").format(Calendar.getInstance().getTime());
 	//收到消息数
 	int receivedCount;
 	//保存用户名
 	public String staticUsername;
-
+    
 	//登陆JFrame
 	public JFrame loginFrame;
 	JLabel currentState;
@@ -316,7 +322,7 @@ public class Client extends JFrame{
 			MaxNumOfMessage maxNumOfMessage = new MaxNumOfMessage(100);
 
 			TextMessage msg = session.createTextMessage();
-			msg.setText(msgText);
+			msg.setText("Msg from "+staticUsername+":"+msgText);
 			if(isLogin)
 			{
 				producer.send(msg);
@@ -373,7 +379,7 @@ public class Client extends JFrame{
 									if(feedbackDisplay.getText().equals("登陆成功")){
 										receivedCount++;
 										msgDisplay.setText(msgDisplay.getText()+"No."+receivedCount+":"+txtMsg.getText()+'\n');
-
+                                        SaveMsgtoFile.SavetoFile(msgPath,"Client"+staticUsername+fileName+"ReceivedMsgRecord.txt","No."+receivedCount+":"+txtMsg.getText());
 									}
 								}
 
@@ -401,6 +407,9 @@ public class Client extends JFrame{
 							}
 
 						} catch (JMSException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -436,7 +445,7 @@ public class Client extends JFrame{
     	client.performanceManager.setPath(client.path);
     	String zipPath=ReadJson.GetConfig("zipPath", "sets.txt");
     	
-    	
+    	msgPath=ReadJson.GetConfig("ClientMsgPath", "sets.txt");
 		Client.Listen mainListen=client.new Listen("Ericsson",false);
 		mainListen.start();
 		client.name=String.valueOf(ClientCount);
