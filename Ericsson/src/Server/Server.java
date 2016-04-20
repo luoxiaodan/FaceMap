@@ -16,9 +16,11 @@ import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
+import com.HaroldLIU.PerformanceManager;
+
 //import Configuration.Configuration;
 import reuse.cm.ReadJson;
-import reuse.pm.PMManager;
+//import reuse.pm.PMManager;
 //import com.HaroldLIU.LicenseManager;
 import reuse.license.MaxNumOfMessage;
 
@@ -37,8 +39,9 @@ public class Server {
     String passWord;
     boolean state=false;
 
-    //PerformanceManager performanceManager = new PerformanceManager("testLog.txt",60*1000);
-    PMManager pmManager=new PMManager("/Users/nyt/Desktop/",1);
+    PerformanceManager performanceManager = new PerformanceManager(ReadJson.GetConfig("path", "sets.txt"),ReadJson.GetConfig("zipPath", "sets.txt"),60*1000);
+
+    // PMManager pmManager=new PMManager("/Users/nyt/Desktop/",1);
    // LicenseManager licenseManager = new LicenseManager();
 
 
@@ -55,8 +58,8 @@ public class Server {
     private   Server ()
     {
         userInit();
-        //performanceManager.start();
-        pmManager.startRecord();
+        performanceManager.start();
+       // pmManager.startRecord();
         //licenseManager.ThroughputInit(timeGap,maxRequestTimes,0);
        // licenseManager.CapacityInit(100,0);
       //MaxNumOfMessage maxNumOfMessage = new MaxNumOfMessage(100);
@@ -91,30 +94,30 @@ public class Server {
         	if (maxNumOfMessage.Check())
             {
                 if (password.equals(theUser.Password)) {
-                    //performanceManager.successTime++;
-                	pmManager.LogSuccess();
+                    performanceManager.successTime++;
+                	//pmManager.LogSuccess();
                     theUser.isLogin = true;
 
                     return 200;
                 }
                 else
                 {
-                    //performanceManager.failTime++;
-                	pmManager.LogFail();
+                    performanceManager.failTime++;
+                	//pmManager.LogFail();
                     return 201;
                 }
             }
             else
             {
-                //performanceManager.failTime++;
-            	pmManager.LogFail();
+                performanceManager.failTime++;
+            	//pmManager.LogFail();
                 return 203;
             }
         }
         else
         {
-            //performanceManager.failTime ++;
-        	pmManager.LogFail();
+            performanceManager.failTime ++;
+        	//pmManager.LogFail();
             return 202;
         }
     }
@@ -218,9 +221,9 @@ public class Server {
     	//timeGap = 1000;// Integer.parseInt(1000);
     	//maxRequestTimes = 5;// Integer.parseInt(Configuration.getMaxRequestTimes());
 
-    	port = "tcp://localhost:" + ReadJson.GetConfig("port", "/Users/Harold_LIU/Desktop/sets.txt");
-    	timeGap = Integer.parseInt(ReadJson.GetConfig("timeGap", "/Users/Harold_LIU/Desktop/sets.txt"));
-    	maxRequestTimes = Integer.parseInt(ReadJson.GetConfig("maxRequestTimes", "/Users/Harold_LIU/Desktop/sets.txt"));
+    	port = "tcp://localhost:" + ReadJson.GetConfig("port", "sets.txt");
+    	timeGap = Integer.parseInt(ReadJson.GetConfig("timeGap", "sets.txt"));
+    	maxRequestTimes = Integer.parseInt(ReadJson.GetConfig("maxRequestTimes", "sets.txt"));
     	
     	Server server=Server.sharedServer();
     	Listen userName=server.new Listen("userName");
