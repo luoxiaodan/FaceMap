@@ -18,6 +18,7 @@ import javax.swing.*;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
+import com.HaroldLIU.PerformanceManager;
 import com.TopicLuo.MySubscriber;
 
 //import Configuration.Configuration;
@@ -25,7 +26,7 @@ import reuse.cm.ReadJson;
 
 //import com.HaroldLIU.LicenseManager;
 import reuse.license.MaxNumOfMessage;
-import reuse.pm.PMManager;
+//import reuse.pm.PMManager;
 
 public class Client extends JFrame{
 	//端口
@@ -76,8 +77,8 @@ public class Client extends JFrame{
 	String name;
 
 	//LicenseManager licenseManager = new LicenseManager();
-	//PerformanceManager performanceManager = new PerformanceManager(path,60*1000);
-	PMManager pmManager=new PMManager(path,1);
+	PerformanceManager performanceManager = new PerformanceManager(path,path,60*1000);
+	//PMManager pmManager=new PMManager(path,1);
 	public Client(){
 		super();
 
@@ -386,14 +387,16 @@ public class Client extends JFrame{
 									Client.this.setVisible(true);
 									//loginFrame.setVisible(false);
 									currentStateDisplay.setText("已登录");
-									//performanceManager.successTime++;
-									pmManager.LogSuccess();
-									loginSuccessfulDisplay.setText(String.valueOf(PMManager.getValidLoginCount()));
+									performanceManager.successTime++;
+									//pmManager.LogSuccess();
+									//loginSuccessfulDisplay.setText(String.valueOf(PMManager.getValidLoginCount()));
+									loginSuccessfulDisplay.setText(String.valueOf(performanceManager.successTime));
 								}else{
 									//loginFrame.setVisible(true);
-									//performanceManager.failTime++;
-									pmManager.LogFail();
-									loginFailDisplay.setText(String.valueOf(PMManager.getInValidLoginCount()));
+									performanceManager.failTime++;
+									//pmManager.LogFail();
+									//loginFailDisplay.setText(String.valueOf(PMManager.getInValidLoginCount()));
+									loginFailDisplay.setText(String.valueOf(performanceManager.failTime));
 								}
 							}
 
@@ -428,10 +431,12 @@ public class Client extends JFrame{
 		//client.path = Configuration.getPath();
 		//System.out.println(client.port+client.path);
 		
-		client.port = "tcp://localhost:" + ReadJson.GetConfig("port", "/Users/Harold_LIU/Desktop/sets.txt");
-    	client.path = ReadJson.GetConfig("path", "/Users/Harold_LIU/Desktop/sets.txt");
-    	//client.performanceManager.setPath(client.path);
-		
+		client.port = "tcp://localhost:" + ReadJson.GetConfig("port", "sets.txt");
+    	client.path = ReadJson.GetConfig("path", "sets.txt");
+    	client.performanceManager.setPath(client.path);
+    	String zipPath=ReadJson.GetConfig("zipPath", "sets.txt");
+    	
+    	
 		Client.Listen mainListen=client.new Listen("Ericsson",false);
 		mainListen.start();
 		client.name=String.valueOf(ClientCount);
