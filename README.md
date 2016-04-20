@@ -27,14 +27,14 @@
 ⚠️构件运行的java版本为:1.8.
 
 - [Configuration Management Model](https://github.com/Gavin96/SoftwareReuse/blob/master/%E5%A4%8D%E7%94%A8%E6%9E%84%E4%BB%B6%2FConfigurationManager%2Fsrc%2FConfiguration%2FConfiguration.java)
-读取文件中的系统配置指标，并且提供实时地查询和动态加载功能.**👉[jar包](https://github.com/Gavin96/SoftwareReuse/blob/master/Jar%2FConfiguration.jar?raw=true)**,同时需要引入对于JSON数据进行处理的**[jar包](https://github.com/Gavin96/SoftwareReuse/tree/master/Jar/JSON)**
+读取文件中的系统配置指标，并且提供实时地查询和动态加载功能.**👉[jar包](https://github.com/Gavin96/SoftwareReuse/blob/master/Jar%2FCM%2FConfiguration.jar?raw=true)**,同时需要引入对于JSON数据进行处理的**[jar包](https://github.com/Gavin96/SoftwareReuse/tree/master/Jar/CM/JSON)**
 
 
 - [Performance Management Model](https://github.com/Gavin96/SoftwareReuse/blob/master/%E5%A4%8D%E7%94%A8%E6%9E%84%E4%BB%B6%2FPerformanceManager%2Fsrc%2Fcom%2FHaroldLIU%2FPerformanceManager.java):
-接收系统的性能指标，每分钟自动生成报告并且输出到单独的性能文件(包括报告时间)，**👉[jar包](https://github.com/Gavin96/SoftwareReuse/blob/master/Jar%2FPerformanceManager.jar?raw=true)**
+接收系统的性能指标，每分钟自动生成报告并且输出到单独的性能文件(包括报告时间)，**👉[jar包](https://github.com/Gavin96/SoftwareReuse/blob/master/Jar%2FPM%2FPerformanceManager.jar?raw=true)**
 
 - [License Model](https://github.com/Gavin96/SoftwareReuse/blob/master/%E5%A4%8D%E7%94%A8%E6%9E%84%E4%BB%B6%2FLicenseManager%2Fsrc%2Fcom%2FHaroldLIU%2FLicenseManager.java):
-提供Throughput和Capacity两种检测方式，**👉[jar包](https://github.com/Gavin96/SoftwareReuse/blob/master/Jar%2FLicenseManager.jar?raw=true)**
+提供Throughput和Capacity两种检测方式，**👉[jar包](https://github.com/Gavin96/SoftwareReuse/blob/master/Jar%2FLicense%2FLicenseManager.jar?raw=true)**
 
 - [通讯组件](https://github.com/Gavin96/SoftwareReuse/blob/master/%E5%A4%8D%E7%94%A8%E6%9E%84%E4%BB%B6%2FTopic%2Fcom%2FTopicLuo%2FMySubscriber.java)
 在activemq的基础上，对activemq提供的topic模式进行了一定的封装，为实现收发消息的系统提供了更简易的Topic收发订阅组件，**👉[jar包](https://github.com/Gavin96/SoftwareReuse/blob/master/Jar%2FTopic.jar?raw=true)**
