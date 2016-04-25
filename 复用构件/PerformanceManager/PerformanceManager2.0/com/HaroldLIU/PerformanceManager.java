@@ -91,7 +91,6 @@ public class PerformanceManager {
         timer.scheduleAtFixedRate(task,executionDate,delay);
     }
     /**
-     * path: 需要压缩的文件目录
      * FileName: 压缩文件名
      * zipPath：压缩存放目录
      */
