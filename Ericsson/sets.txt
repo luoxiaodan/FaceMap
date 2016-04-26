@@ -1,1 +1,1 @@
-{"port":"61616","timeGap":"1000","maxRequestTimes":"5","path":"E:\\","zipPath":"E:\\","ClientMsgPath":"E:\\","ServerMsgPath":"E:\\"}
+{"port":"61616","timeGap":"1000","maxRequestTimes":"5","path":"/Users/Harold_LIU/Desktop","zipPath":"/Users/Harold_LIU/Desktop","ClientMsgPath":"/Users/Harold_LIU/Desktop","ServerMsgPath":"/Users/Harold_LIU/Desktop"}
