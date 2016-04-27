@@ -17,6 +17,8 @@
 - [程序文档](https://github.com/Gavin96/SoftwareReuse/blob/master/Document/%E7%A8%8B%E5%BA%8F%E6%96%87%E6%A1%A3.pdf)
 - [复用文档](https://github.com/Gavin96/SoftwareReuse/blob/master/Document%2F%E5%A4%8D%E7%94%A8%E6%96%87%E6%A1%A3.pdf)
 - [构件测试文档](https://github.com/Gavin96/SoftwareReuse/blob/master/Document%2F%E6%9E%84%E4%BB%B6%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3.pdf)
+- [重构复用文档](https://github.com/Gavin96/SoftwareReuse/tree/master/Document/%E9%87%8D%E6%9E%84%E7%A8%8B%E5%BA%8F%E6%96%87%E6%A1%A3)
+- [实践06测试文档](https://github.com/Gavin96/SoftwareReuse/blob/master/Document%2F%E5%AE%9E%E8%B7%B506%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3.pdf)
 
 ===
 
