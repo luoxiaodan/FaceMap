@@ -40,11 +40,11 @@ public class PerformanceManager {
         	String timeCheck=new SimpleDateFormat("HH_mm").format(Calendar.getInstance().getTime());
         	if(timeCheck.equals("00_00")){
         		//System.out.println("zipPath: "+zipPath+ " name: "+zipName);
-        		zip(zipName,zipPath);
+        		zip(path,zipName,zipPath);
         		recurDelete(new File(path));
                 setPath(oldPath);
-        		
         	}
+        	//每周归档，周日，周一，周二，周三，周四，周五，周六
         	if(getWeekOfDate(new Date()).equals("星期六")){
         		weeklyZip();
         		recurDelete(new File(zipPath+"\\data\\"));
@@ -52,7 +52,7 @@ public class PerformanceManager {
             String currentMins = new SimpleDateFormat("yyyy_MM_dd HH mm ss").format(Calendar.getInstance().getTime());
             String needToWrite = "Valid Time:"+successTime + "\t" +"Invalid Time:"+ failTime + "\t" +"Total:"+(successTime+failTime)+"\t"+"Date:"+ currentMins + "\n";
             try {
-            	 System.out.println(path);
+            	 //System.out.println(path);
                 FileWriter writer = new FileWriter(path+"\\"+currentMins+"Report.txt", true);
                 writer.write(needToWrite);
                 System.out.println(needToWrite);
@@ -76,11 +76,11 @@ public class PerformanceManager {
         	   if(i==0) start=name.substring(0,name.indexOf('.'));
         	   end=name.substring(0,name.indexOf('.'));
         	   i++;
-        	   unzip(zipPath+name,zipPath+"\\data\\"); 
+        	   unzip(zipPath+name,zipPath+"\\data\\"); //解压7个每日压缩包
            }
         }
        
-        zip(start+"-"+end+".zip", zipPath);
+        zip(zipPath+"\\data\\",start+"-"+end+".zip", zipPath);//归档为周压缩包
 		
 	}
     public static String [] getFileName(String path)
@@ -98,7 +98,7 @@ public class PerformanceManager {
     	//临时未归档输出文件放入指定路径的yyyy_MM_dd文件夹下，归档时，压缩包在指定路径下
     	 String fileName = new SimpleDateFormat("yyyy_MM_dd").format(Calendar.getInstance().getTime());
          zipName=fileName+".zip";
-    	 path = newPath+"\\"+fileName;
+    	 path = newPath+fileName;
         File file =new File(path); 
         if(!file.exists()&& !file .isDirectory()){
         	 file.mkdir(); 
@@ -127,7 +127,10 @@ public class PerformanceManager {
         Date executionDate = new Date();
         timer.scheduleAtFixedRate(task,executionDate,delay);
     }
-    
+    /**
+     * zippath: 需要解压缩的文件目录
+     * unzipPath：压缩存放目录
+     **/
     public static void unzip(String zipPath, String unzipPath) {  
         File warFile = new File(zipPath);  
         try {  
@@ -164,7 +167,7 @@ public class PerformanceManager {
      * FileName: 压缩文件名
      * zipPath：压缩存放目录
      */
-    public static void zip(String FileName, String zipPath) { 
+    public static void zip(String path,String FileName, String zipPath) { 
     	if(new File(path).exists()){
         File outFile = new File(zipPath+"\\"+FileName);  
         try {  
@@ -174,10 +177,10 @@ public class PerformanceManager {
             ArchiveOutputStream out = new ArchiveStreamFactory()  
                     .createArchiveOutputStream(ArchiveStreamFactory.JAR,  
                             bufferedOutputStream);  
-            if (path.charAt(path.length() - 1) != '/') {  
+           /* if (path.charAt(path.length() - 1) != '/') {  
             	path += '/';  
             }  
-  
+  */
             Iterator<File> files = FileUtils.iterateFiles(new File(path),  
                     null, true);  
             while (files.hasNext()) {  
