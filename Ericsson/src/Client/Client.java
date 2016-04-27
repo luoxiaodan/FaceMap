@@ -42,7 +42,8 @@ public class Client extends JFrame{
 	int receivedCount;
 	//保存用户名
 	public String staticUsername;
-    
+	private String groupId;
+
 	//登陆JFrame
 	public JFrame loginFrame;
 	JLabel currentState;
@@ -294,8 +295,7 @@ public class Client extends JFrame{
 				// TODO Auto-generated method stub
 				String str = msgSent.getText();
 				status=false;
-				sendMsg(str,"Ericsson",false);
-				//msgNumberDisplay.setText(String.valueOf(licenseManager.getCountingCapacity()));
+				sendMsg(str, "Ericsson", false);
 				msgSent.setText("");
 			}
 		});
@@ -303,8 +303,6 @@ public class Client extends JFrame{
 		this.setVisible(false);
 	}
 	public  void Login(String userName, String password){
-
-
 		sendMsg(name+":"+userName,"userName",true);
 		sendMsg(name+":"+password,"passWord",true);
 	}
@@ -322,7 +320,7 @@ public class Client extends JFrame{
 			MaxNumOfMessage maxNumOfMessage = new MaxNumOfMessage(100);
 
 			TextMessage msg = session.createTextMessage();
-			msg.setText("Msg from "+staticUsername+":"+msgText);
+			msg.setText(groupId+"Msg from "+staticUsername+":"+msgText);
 			if(isLogin)
 			{
 				producer.send(msg);
@@ -371,37 +369,32 @@ public class Client extends JFrame{
 					public void onMessage(Message msg) {
 
 						TextMessage txtMsg = (TextMessage) msg;
-
 						try {
-							//System.out.println(isLogin+"  "+topicName+ " "+ status+txtMsg.getText());
+							String backMessage = txtMsg.getText();
 							if(!isLogin){
 								if(status){
 									if(feedbackDisplay.getText().equals("登陆成功")){
-										receivedCount++;
-										msgDisplay.setText(msgDisplay.getText()+"No."+receivedCount+":"+txtMsg.getText()+'\n');
-                                        SaveMsgtoFile.SavetoFile(msgPath,"Client"+staticUsername+fileName+"ReceivedMsgRecord.txt","No."+receivedCount+":"+txtMsg.getText());
+										if(backMessage.substring(0,1).equals(groupId)) {
+											receivedCount++;
+											msgDisplay.setText(msgDisplay.getText() + "No." + receivedCount + ":" + backMessage.substring(1,backMessage.length()) + '\n');
+											SaveMsgtoFile.SavetoFile(msgPath, "Client" + staticUsername + fileName + "ReceivedMsgRecord.txt", "No." + receivedCount + ":" + txtMsg.getText());
+										}
 									}
 								}
 
 							}else{
-
 								feedbackDisplay.setText("登陆成功");
-
-								if(txtMsg.getText().equals("200")){
-
+								if(backMessage.substring(0,backMessage.length()-1).equals("200")){
 									//already login
+									groupId = backMessage.substring(backMessage.length()-1);
 									Client.this.setVisible(true);
 									//loginFrame.setVisible(false);
 									currentStateDisplay.setText("已登录");
 									performanceManager.successTime++;
-									//pmManager.LogSuccess();
-									//loginSuccessfulDisplay.setText(String.valueOf(PMManager.getValidLoginCount()));
 									loginSuccessfulDisplay.setText(String.valueOf(performanceManager.successTime));
 								}else{
 									//loginFrame.setVisible(true);
 									performanceManager.failTime++;
-									//pmManager.LogFail();
-									//loginFailDisplay.setText(String.valueOf(PMManager.getInValidLoginCount()));
 									loginFailDisplay.setText(String.valueOf(performanceManager.failTime));
 								}
 							}

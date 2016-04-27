@@ -37,11 +37,11 @@ public class ServerTest {
 		getFindUser.setAccessible(true);
 		User user = (User)getFindUser.invoke(server, "liu");
 		//�ڵ�½״̬�²���
-		user.isLogin = true;
+		user.setIsLogin(true);
 		Boolean result1 = server.checkConnection("liu");
 		Assert.assertTrue(result1);
 		//��δ��¼״̬�²���
-		user.isLogin = false;
+		user.setIsLogin(false);
 		Boolean result2 = server.checkConnection("liu");
 		Assert.assertFalse(result2);
 		//�ò��Ե��û������
@@ -85,23 +85,23 @@ public class ServerTest {
 		testCheckTime.setAccessible(true);
 		//��ݵ���checkTime�������������������жϴ�ʱuser������һ�����ڵģ����Բ���ʱ���ò���user���󲻴��ڵ����
 		//�������Ϊ0�������
-		user.loginRequsetTime = 0;
+		user.setLoginRequsetTime(0);
 		Boolean result1 = (Boolean) testCheckTime.invoke(server, user);
 		Assert.assertTrue(result1);
 		//����������0���Ҿ����ϴ�����ʱ��С��1s������µ��������
 		//<1>�������С��5��
-		user.loginDate = System.currentTimeMillis();
-		user.loginRequsetTime = 3;
+		user.setLoginDate(System.currentTimeMillis());
+		user.setLoginRequsetTime(3);
 		Boolean result2 = (Boolean) testCheckTime.invoke(server, user);
 		Assert.assertTrue(result2);
 		//<2>����������5��
-		user.loginDate = System.currentTimeMillis();
-		user.loginRequsetTime = 6;
+		user.setLoginDate(System.currentTimeMillis());
+		user.setLoginRequsetTime(6);
 		Boolean result3 = (Boolean) testCheckTime.invoke(server, user);
 		Assert.assertFalse(result3);
 		//�������Ϊ0��������ʱ��������1s
-		user.loginDate = System.currentTimeMillis()-2000;
-		user.loginRequsetTime = 6;
+		user.setLoginDate(System.currentTimeMillis()-2000);
+		user.setLoginRequsetTime(6);
 		Boolean result4 = (Boolean) testCheckTime.invoke(server, user);
 		Assert.assertTrue(result4);
 	}
@@ -118,8 +118,8 @@ public class ServerTest {
 		Method getFindUser = server.getClass().getDeclaredMethod("findUser",String.class);
 		getFindUser.setAccessible(true);
 		User user = (User)getFindUser.invoke(server, "liu");
-		user.loginDate = System.currentTimeMillis();
-		user.loginRequsetTime = 6;
+		user.setLoginDate( System.currentTimeMillis());
+		user.setLoginRequsetTime(6);
 		int result3 = server.login("liu", "123");
 		Assert.assertEquals(result3, 203);
 		//�û������

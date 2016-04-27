@@ -41,6 +41,7 @@ public class Server {
     static private Server server;
     String userName;
     String passWord;
+    String groupId="";
     boolean state=false;
     public static String msgPath=ReadJson.GetConfig("ServerMsgPath", "sets.txt");;
 	public String fileName=new SimpleDateFormat("yyyy_MM_dd").format(Calendar.getInstance().getTime());
@@ -51,31 +52,34 @@ public class Server {
     // PMManager pmManager=new PMManager("/Users/nyt/Desktop/",1);
    // LicenseManager licenseManager = new LicenseManager();
 
-
-
     private void userInit()
     {
-        users.add(new User("liu","123",false,0,0,0));
-        users.add(new User("zhao","123",false,0,0,0));
-        users.add(new User("qian","123",false,0,0,0));
-        users.add(new User("sun","123",false,0,0,0));
-        users.add(new User("li", "123", false, 0, 0, 0));
+        users.add(new User("liu","123",false,0,0,0,1));
+        users.add(new User("zhao","123",false,0,0,0,1));
+        users.add(new User("qian","123",false,0,0,0,1));
+        users.add(new User("sun","123",false,0,0,0,2));
+        users.add(new User("li", "123", false, 0, 0, 0,2));
+        users.add(new User("zhou","123",false,0,0,0,2));
+        users.add(new User("wu","123",false,0,0,0,3));
+        users.add(new User("zheng","123",false,0,0,0,3));
+        users.add(new User("wang","123",false,0,0,0,3));
+        users.add(new User("chen", "123", false, 0, 0, 0,4));
     }
 
     private   Server ()
     {
         userInit();
         performanceManager.start();
-       // pmManager.startRecord();
+        // pmManager.startRecord();
         //licenseManager.ThroughputInit(timeGap,maxRequestTimes,0);
-       // licenseManager.CapacityInit(100,0);
-      //MaxNumOfMessage maxNumOfMessage = new MaxNumOfMessage(100);
+        // licenseManager.CapacityInit(100,0);
+        //MaxNumOfMessage maxNumOfMessage = new MaxNumOfMessage(100);
     }
 
     private User findUser(String userName)
     {
         for (int i = 0; i<users.size();i++) {
-            if (userName.equals(users.get(i).UserName)) {
+            if (userName.equals(users.get(i).getUserName())) {
                 return users.get(i);
             }
         }
@@ -100,11 +104,10 @@ public class Server {
             //if (licenseManager.ThroughputCheck())
         	if (maxNumOfMessage.Check())
             {
-                if (password.equals(theUser.Password)) {
+                if (password.equals(theUser.getPassword())) {
                     performanceManager.successTime++;
                 	//pmManager.LogSuccess();
-                    theUser.isLogin = true;
-
+                    theUser.setIsLogin(true);
                     return 200;
                 }
                 else
@@ -135,7 +138,7 @@ public class Server {
 
         if(!theUser.equals(null))
         {
-            if (theUser.isLogin)
+            if (theUser.isLogin())
                 return  true;
             else
                 return false;
@@ -146,11 +149,12 @@ public class Server {
     }
 
     class Listen extends Thread{
-    	String topicName;
-    public Listen(String _topicName){
+
+        String topicName;
+        public Listen(String _topicName){
     	topicName=_topicName;
     }
-    public void ListenMsg(){
+        public void ListenMsg(){
 
     	ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(port);
         Connection connection;
@@ -182,16 +186,17 @@ public class Server {
 						if(!state) state=true;
 					}
 						if(state){
-							
-							int pos=userName.indexOf(':');//³ýµôÏûÏ¢Ç°ÃæµÄMsg from xxx£º
-							
+							int pos=userName.indexOf(':');//ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ç°ï¿½ï¿½ï¿½Msg from xxxï¿½ï¿½
 							int pos2=userName.substring(pos+1,userName.length()).indexOf(':');
 							String name=userName.substring(pos+1, pos+pos2+1);
-							
 							String username=userName.substring(pos+pos2+2,userName.length());
 							String password=passWord.substring(pos+pos2+2,passWord.length());
+
 							int back=login(username,password);
-							sendMsg(String.valueOf(back),name);
+                            if (200 == back)
+                                groupId = String.valueOf(findUser(username).getGroupId());
+                            System.out.println("server back:"+name+groupId);
+							sendMsg(String.valueOf(back)+groupId, name );
 							state=false;
 						}
 					}
@@ -225,21 +230,17 @@ public class Server {
 		Destination dest = session.createTopic(toipcName);
 		MessageProducer producer = session.createProducer(dest);
 
-
 		TextMessage msg = session.createTextMessage();
 		msg.setText(msgText);
 		producer.send(msg);
         System.out.println(msg.getText());
 
-			} catch (JMSException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
+        } catch (JMSException e2) {
+            // TODO Auto-generated catch block
+            e2.printStackTrace();
+        }
     }
     public static void main(String[] args) throws Exception {
-    	//port = "tcp://localhost:61616"; //+ Configuration.getPort();
-    	//timeGap = 1000;// Integer.parseInt(1000);
-    	//maxRequestTimes = 5;// Integer.parseInt(Configuration.getMaxRequestTimes());
 
     	port = "tcp://localhost:" + ReadJson.GetConfig("port", "sets.txt");
     	timeGap = Integer.parseInt(ReadJson.GetConfig("timeGap", "sets.txt"));
@@ -253,8 +254,6 @@ public class Server {
     	Listen receivedMsg=server.new Listen("Ericsson");
     	receivedMsg.start();
     	System.out.println("--------Server Start------");
-    	
-
     }
 
 }
