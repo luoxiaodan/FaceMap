@@ -8,58 +8,65 @@ import java.io.IOException;
 import net.sf.json.JSONObject;
 
 public class Configuration {
-	public static String path = "C:\\sets";
+	//public static String path = "C:\\sets";
+	
+	public static String getConfig(String path, String id){
+		String sets=ReadFile(path);//»ñµÃjsonÎÄ¼şµÄÄÚÈİ
+		JSONObject jo=JSONObject.fromObject(sets);//¸ñÊ½»¯³Éjson¶ÔÏó
 
-	public static String getPort(){
-		String sets=ReadFile(path);//è·å¾—jsonæ–‡ä»¶çš„å†…å®¹
-		JSONObject jo=JSONObject.fromObject(sets);//æ ¼å¼åŒ–æˆjsonå¯¹è±¡
+		return jo.getString(id);
+	}
+	
+	/*public static String getPort(){
+		String sets=ReadFile(path);//»ñµÃjsonÎÄ¼şµÄÄÚÈİ
+		JSONObject jo=JSONObject.fromObject(sets);//¸ñÊ½»¯³Éjson¶ÔÏó
 
 		return jo.getString("port");
 
 	}
 	public static String getTimeGap(){
-		String sets=ReadFile(path);//è·å¾—jsonæ–‡ä»¶çš„å†…å®¹
+		String sets=ReadFile(path);//»ñµÃjsonÎÄ¼şµÄÄÚÈİ
 		//System.out.println(sets);
-		JSONObject jo=JSONObject.fromObject(sets);//æ ¼å¼åŒ–æˆjsonå¯¹è±¡
+		JSONObject jo=JSONObject.fromObject(sets);//¸ñÊ½»¯³Éjson¶ÔÏó
 
 		return jo.getString("timeGap");
 	}
 	public static String getMaxRequestTimes(){
-		String sets=ReadFile(path);//è·å¾—jsonæ–‡ä»¶çš„å†…å®¹
+		String sets=ReadFile(path);//»ñµÃjsonÎÄ¼şµÄÄÚÈİ
 		//System.out.println(sets);
-		JSONObject jo=JSONObject.fromObject(sets);//æ ¼å¼åŒ–æˆjsonå¯¹è±¡
+		JSONObject jo=JSONObject.fromObject(sets);//¸ñÊ½»¯³Éjson¶ÔÏó
 
 		return jo.getString("maxRequestTimes");
 	}
 	public static String getPath(){
-		String sets=ReadFile(path);//è·å¾—jsonæ–‡ä»¶çš„å†…å®¹
+		String sets=ReadFile(path);//»ñµÃjsonÎÄ¼şµÄÄÚÈİ
 		//System.out.println(sets);
-		JSONObject jo=JSONObject.fromObject(sets);//æ ¼å¼åŒ–æˆjsonå¯¹è±¡
+		JSONObject jo=JSONObject.fromObject(sets);//¸ñÊ½»¯³Éjson¶ÔÏó
 
 		return jo.getString("path");
 	}
 
-	//æä¾›æŸ¥è¯¢æ¥å£
+	//Ìá¹©²éÑ¯½Ó¿Ú
 	public static String getConfigurationFileInfo(){
-		String sets=ReadFile(path);//è·å¾—jsonæ–‡ä»¶çš„å†…å®¹
+		String sets=ReadFile(path);//»ñµÃjsonÎÄ¼şµÄÄÚÈİ
 		//System.out.println(sets);
-		JSONObject jo=JSONObject.fromObject(sets);//æ ¼å¼åŒ–æˆjsonå¯¹è±¡
+		JSONObject jo=JSONObject.fromObject(sets);//¸ñÊ½»¯³Éjson¶ÔÏó
 
-		return "ç«¯å£:"+jo.getString("port")+" æ—¶é—´é—´éš”:"+jo.getString("timeGap")+" æœ€å¤§è¯·æ±‚æ¬¡æ•°:"+jo.getString("maxRequestTimes")+" æ–‡ä»¶å­˜å‚¨è·¯å¾„:"+jo.getString("path");
-	}
+		return "¶Ë¿Ú:"+jo.getString("port")+" Ê±¼ä¼ä¸ô:"+jo.getString("timeGap")+" ×î´óÇëÇó´ÎÊı:"+jo.getString("maxRequestTimes")+" ÎÄ¼ş´æ´¢Â·¾¶:"+jo.getString("path");
+	}*/
 
 	public static String ReadFile(String path){
 		File file = new File(path);
 		BufferedReader reader = null;
 		String laststr = "";
 		try {
-			//System.out.println("ä»¥è¡Œä¸ºå•ä½è¯»å–æ–‡ä»¶å†…å®¹ï¼Œä¸€æ¬¡è¯»ä¸€æ•´è¡Œï¼š");
+			//System.out.println("ÒÔĞĞÎªµ¥Î»¶ÁÈ¡ÎÄ¼şÄÚÈİ£¬Ò»´Î¶ÁÒ»ÕûĞĞ£º");
 			reader = new BufferedReader(new FileReader(file));
 			String tempString = null;
 			//int line = 1;
-			//ä¸€æ¬¡è¯»å…¥ä¸€è¡Œï¼Œç›´åˆ°è¯»å…¥nullä¸ºæ–‡ä»¶ç»“æŸ
+			//Ò»´Î¶ÁÈëÒ»ĞĞ£¬Ö±µ½¶ÁÈënullÎªÎÄ¼ş½áÊø
 			while ((tempString = reader.readLine()) != null) {
-				//æ˜¾ç¤ºè¡Œå·
+				//ÏÔÊ¾ĞĞºÅ
 				//System.out.println("line " + line + ": " + tempString);
 				laststr = laststr + tempString;
 				//line++ ;
