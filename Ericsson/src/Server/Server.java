@@ -46,10 +46,9 @@ public class Server {
     public static String msgPath=ReadJson.GetConfig("ServerMsgPath", "sets.txt");;
 	public String fileName=new SimpleDateFormat("yyyy_MM_dd").format(Calendar.getInstance().getTime());
 	
-
     PerformanceManager performanceManager = new PerformanceManager(ReadJson.GetConfig("path", "sets.txt"),ReadJson.GetConfig("zipPath", "sets.txt"),60*1000);
 
-    // PMManager pmManager=new PMManager("/Users/nyt/Desktop/",1);
+	// PMManager pmManager=new PMManager("/Users/nyt/Desktop/",1);
    // LicenseManager licenseManager = new LicenseManager();
 
     private void userInit()
