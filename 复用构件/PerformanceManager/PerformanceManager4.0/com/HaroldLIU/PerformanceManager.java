@@ -72,7 +72,11 @@ public class PerformanceManager {
 		return zipFiledTime;
 	}
 	public static void setZipFiledTime(long zipFiledTime) {
+		if(zipFiledTime<zipSpaceTime){
+			zipFiledTime=2*zipSpaceTime;
+		}else{
 		PerformanceManager.zipFiledTime = zipFiledTime;
+		}
 	}
 	
     private class WriterTask extends TimerTask {
