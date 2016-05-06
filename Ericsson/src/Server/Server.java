@@ -68,7 +68,12 @@ public class Server {
     private   Server ()
     {
         userInit();
+        long date=Calendar.getInstance().getTimeInMillis();
+        performanceManager.setBegin(date);
+        performanceManager.setZipSpaceTime(Long.parseLong(ReadJson.GetConfig("zipSpace", "sets.txt")));
+        performanceManager.setZipFiledTime(Long.parseLong(ReadJson.GetConfig("zipFiled", "sets.txt")));
         performanceManager.start();
+        
         // pmManager.startRecord();
         //licenseManager.ThroughputInit(timeGap,maxRequestTimes,0);
         // licenseManager.CapacityInit(100,0);
