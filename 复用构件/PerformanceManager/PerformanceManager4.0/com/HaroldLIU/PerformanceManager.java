@@ -25,6 +25,8 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
+import FileEncryption.FileEncryption;
+
 public class PerformanceManager {
 
     public int successTime = 0, failTime = 0;
@@ -91,14 +93,35 @@ public class PerformanceManager {
             		recurDelete(new File(zipPath+"\\data\\"));
             		
             	}
-        		
+            	
+            	
+            	//归档前加密
+              
+  			  File file=new File(path);
+  			  File[] tempList = file.listFiles();
+  			  
+  			  for (int i = 0; i < tempList.length; i++) {
+  			   if (tempList[i].isFile()) {
+  				 FileEncryption fe = new FileEncryption("Ericsson");  //参数为随便一个字符串，不同的字符串生成不同的加密文件
+
+             	try {
+             		fe.encrypt(path+"\\"+tempList[i].getName(),path+"\\"+ tempList[i].getName());   //第一个参数为需要加密的文件，第二个参数为加密生成的文件
+             	//	fe.decrypt(path+"\\"+tempList[i].getName(),path+"\\"+ tempList[i].getName());  //第一个参数为需要解密的文件，第二个参数为解密生成的文件
+             	} catch (Exception e) {
+             		e.printStackTrace();
+             	}
+  			   // System.out.println("文件："+tempList[i]);
+  			   }
+  			  }
+            	
+            	
         		zip(path,zipName,zipPath);
         		recurDelete(new File(path));
                 setPath(oldPath);
         	}
         	
             String currentMins = new SimpleDateFormat("yyyy_MM_dd HH mm ss").format(Calendar.getInstance().getTime());
-            String needToWrite = "Valid Time:"+successTime + "\t" +"Invalid Time:"+ failTime + "\t" +"Total:"+(successTime+failTime)+"\t"+"Date:"+ currentMins + "\n";
+            String needToWrite = "Valid Time:"+successTime + "\t" +"Invalid Time:"+ failTime + "\t" +"Total:"+(successTime+failTime)+"\t"+"Date:"+ currentMins + "\r\n";
             try {
             	 //System.out.println(path);
                 FileWriter writer = new FileWriter(path+"\\"+currentMins+"Report.txt", true);
@@ -287,9 +310,9 @@ public class PerformanceManager {
         PerformanceManager performanceManager = new PerformanceManager("E:\\","E:\\", 10);
        long begin=Calendar.getInstance().getTimeInMillis();
         performanceManager.setBeginZipSpace(begin);
-        performanceManager.setZipSpaceTime(30);
+        performanceManager.setZipSpaceTime(10);
         performanceManager.setBeginZipFiled(begin);
-        performanceManager.setZipFiledTime(60);
+        performanceManager.setZipFiledTime(20);
         performanceManager.start();
         performanceManager.successTime = 12;
     }
