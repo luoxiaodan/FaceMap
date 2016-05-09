@@ -1,6 +1,7 @@
 package Server;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import com.HaroldLIU.PerformanceManager;
 
 import extent.SaveMsgtoFile;
 //import Configuration.Configuration;
+import clearfilefolder.Clear;
 import reuse.cm.ReadJson;
 //import reuse.pm.PMManager;
 //import com.HaroldLIU.LicenseManager;
@@ -46,10 +48,9 @@ public class Server {
     public static String msgPath=ReadJson.GetConfig("ServerMsgPath", "sets.txt");;
 	public String fileName=new SimpleDateFormat("yyyy_MM_dd").format(Calendar.getInstance().getTime());
 	
-
     PerformanceManager performanceManager = new PerformanceManager(ReadJson.GetConfig("path", "sets.txt"),ReadJson.GetConfig("zipPath", "sets.txt"),60*1000);
 
-    // PMManager pmManager=new PMManager("/Users/nyt/Desktop/",1);
+	// PMManager pmManager=new PMManager("/Users/nyt/Desktop/",1);
    // LicenseManager licenseManager = new LicenseManager();
 
     private void userInit()
@@ -69,7 +70,12 @@ public class Server {
     private   Server ()
     {
         userInit();
+        long date=Calendar.getInstance().getTimeInMillis();
+        performanceManager.setBegin(date);
+        performanceManager.setZipSpaceTime(Long.parseLong(ReadJson.GetConfig("zipSpace", "sets.txt")));
+        performanceManager.setZipFiledTime(Long.parseLong(ReadJson.GetConfig("zipFiled", "sets.txt")));
         performanceManager.start();
+        
         // pmManager.startRecord();
         //licenseManager.ThroughputInit(timeGap,maxRequestTimes,0);
         // licenseManager.CapacityInit(100,0);
@@ -240,8 +246,13 @@ public class Server {
             e2.printStackTrace();
         }
     }
-    public static void main(String[] args) throws Exception {
 
+	 
+	 
+	 
+    public static void main(String[] args) throws Exception {		
+		
+		
     	port = "tcp://localhost:" + ReadJson.GetConfig("port", "sets.txt");
     	timeGap = Integer.parseInt(ReadJson.GetConfig("timeGap", "sets.txt"));
     	maxRequestTimes = Integer.parseInt(ReadJson.GetConfig("maxRequestTimes", "sets.txt"));

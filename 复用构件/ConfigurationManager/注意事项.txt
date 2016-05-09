@@ -1,4 +1,3 @@
 加载配置文件注意事项：
 1、导入json需要的包（在 /Jar/JSON 文件夹中）
    导入Configuration包(在 /Jar 文件夹中)
-2、配置文件 sets 默认在c盘根目录下，所以运行时要把sets文件拷贝到c盘根目录
