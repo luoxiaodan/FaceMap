@@ -1,3 +1,14 @@
+
+注：
+
+- com.stip.face   Face.path为电脑默认下载路径，需要修改
+- com.stip.dbase  Dbase数据库相关配置需要修改
+
+
+
+
+```java
+
 com.stip.dbase
 
 Connection getConn()
@@ -42,10 +53,5 @@ request.getParameter("destination"); //people's destination
 
 request.getParameter("image");//the url of people's face  
 
-
-注：
-
-com.stip.face   Face.path为电脑默认下载路径，需要修改
-
-com.stip.dbase  Dbase数据库相关配置需要修改
+```
 
