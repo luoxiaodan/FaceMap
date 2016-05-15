@@ -6,20 +6,36 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="photo.js" language="javascript"></script>
  <script src="jquery-1.5.2.js" language="javascript"></script>
-    
+     <script src="..js/jquery.js"></script>
+    <script src="..js/bootstrap.min.js"></script>
+    <script src="..js/main.js"></script>
 <title>Insert title here</title>
+<!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/main.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
 </head>
 <body>
-<div float:left>
-<div>
- <section class="left">
-<video id="video" width="320" height="240" autoplay></video>
+<div class="container">
+  <div class="row">
+ <div class="col-lg-7">
+<div class="face-recognize">
  
-<canvas id="canvas" width="320" height="240"></canvas>
- </section>
+<video id="video" width="500" height="400" autoplay></video>
+ 
+<canvas id="canvas" width="500" height="400"></canvas>
+
 </div>
-<div>
-<button id="snap" onfocus="comparePerson()" class="sexyButton">ok</button>
+
+ </div>
+<div class="col-lg-4">
+<div class="rode-result">
+<button id="snap" onfocus="comparePerson()" class="btn btn-default btn-lg button-name">ok</button>
 <script type="text/javascript">
 function comparePerson(){
 	 
@@ -60,13 +76,17 @@ $.ajax({
 
 </script>
 
-
 </div>
-
-<div>
-<a>destination:</a> <input type="text" id="destination" />
-
 </div>
+</div>
+<div class="form-group class-inline">
+  <button  class="btn btn-default btn-lg button-name">change destination</button>
+<h5>destination:</h5> 
+<input type="text" id="destination" class="form-control" placeholder="Please Input Destination"/>
+
+
     </div>
+    </div>
+    
 </body>
 </html>

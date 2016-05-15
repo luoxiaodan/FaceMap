@@ -6,27 +6,40 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="photo.js" language="javascript"></script>
  <script src="jquery-1.5.2.js" language="javascript"></script>
-    
+    <script src="..js/jquery.js"></script>
+    <script src="..js/bootstrap.min.js"></script>
+    <script src="..js/main.js"></script>
 <title>Insert title here</title>
+ <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/main.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
 </head>
 <body>
-<div float:left>
-<div>
- <section class="left">
-<video id="video" width="320" height="240" autoplay></video>
+<div class="container">
+   <div class="row">
+      <div class="col-lg-7 get-vedio">
+         
+        <video id="video" width="500" height="400" autoplay></video>
  
-<canvas id="canvas" width="320" height="240"></canvas>
- </section>
-</div>
-<div>
-<button id="snap" class="sexyButton">take a Photo</button>
-</div>
+        <canvas id="canvas" width="500" height="400"></canvas>
+       
 
-<div>
-<a>destination:</a> <input type="text" id="destination" />
-<input type="submit" onfocus="addPerson()" value="Submit" />
-<script type="text/javascript">
-function addPerson(){
+          <div class="list-inline" id="takephoto-group">
+          <button id="snap"  class="btn btn-default btn-lg button-name">take a Photo</button>
+          </div>
+       </div>
+     <div class="col-lg-4 get-destination">
+        <div  class="form-group class-inline">
+            <h5 id="photopage-des">destination:</h5> <input type="text" id="destination" type="text" class="form-control" placeholder="Please Input Destination"/>
+            <input type="submit"  class="btn btn-default btn-lg button-name" onfocus="addPerson()" value="Submit" />
+           <script type="text/javascript">
+          function addPerson(){
 	 
 	   var destination = document.getElementById("destination").value;
 	   var canvas=document.getElementById("canvas");
@@ -68,7 +81,9 @@ function addPerson(){
     
       
      
-</script>
+   </script>
+  </div>
+</div>
 </div>
     </div>
 </body>

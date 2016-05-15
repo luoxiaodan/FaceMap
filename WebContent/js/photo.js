@@ -1,5 +1,6 @@
  // Put event listeners into place
-        window.addEventListener("DOMContentLoaded", function() {
+  
+window.addEventListener("DOMContentLoaded", function() {
             // Grab elements, create settings, etc.
             var canvas = document.getElementById("canvas"),
                 context = canvas.getContext("2d"),
@@ -22,10 +23,15 @@
             }
             // Trigger photo take
             document.getElementById("snap").addEventListener("click", function() {
-                context.drawImage(video, 0, 0, 500, 400);
+                context.drawImage(video, 0, 0, 320, 240);
                // var image = canvas.toDataURL("image/jpeg");
-                
+              //  var conn=dbase.getConn();
             	  
             });
             
         }, false);
+        
+
+	
+  
+        
