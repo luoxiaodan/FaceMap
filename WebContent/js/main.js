@@ -3,7 +3,7 @@ $(document).ready(function(){
         function(){
           //var text=$('#search').val();
           alert("Next pagepppp");
-          var url="destination.html";
+          var url="findmap.jsp";
           window.location.href=url;
         }
     )

@@ -27,17 +27,25 @@
          
         <video id="video" width="500" height="400" autoplay></video>
  
-        <canvas id="canvas" width="500" height="400"></canvas>
        
 
+          
           <div class="list-inline" id="takephoto-group">
-          <button id="snap"  class="btn btn-default btn-lg button-name">take a Photo</button>
+                        &nbsp&nbsp&nbsp&nbsp
+                        <button id="snap" class="btn btn-default btn-lg button-name">开始拍照</button>
+                        &nbsp&nbsp&nbsp&nbsp
+                        <button id="snapconfirm" class="btn btn-default btn-lg button-name">确认</button>
+                        &nbsp&nbsp&nbsp&nbsp
+                        <button id="snapagain" class="btn btn-default btn-lg button-name">重新拍照</button>
+                    
           </div>
+           <canvas id="canvas" width="500" height="400"></canvas>
+       
        </div>
      <div class="col-lg-4 get-destination">
         <div  class="form-group class-inline">
             <h5 id="photopage-des">destination:</h5> <input type="text" id="destination" type="text" class="form-control" placeholder="Please Input Destination"/>
-            <input type="submit"  class="btn btn-default btn-lg button-name" onfocus="addPerson()" value="Submit" />
+            <input type="submit" id="photopage-submit" class="btn btn-default btn-lg button-name" onfocus="addPerson()" value="Submit" />
            <script type="text/javascript">
           function addPerson(){
 	 
@@ -64,7 +72,7 @@
     save_link.dispatchEvent(event);
 };
   
-     var filename = "sitp_"+ (new Date()).getTime() +".png";
+     var filename = "sitp.png";
   
     saveFile(dataURL,filename);
 
