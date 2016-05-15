@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,20 +26,36 @@
       <div class="col-lg-7 get-vedio">
          
         <video id="video" width="500" height="400" autoplay></video>
- 
+      <!-- <div class="list-inline" id="takephoto-group">
+                &nbsp&nbsp&nbsp&nbsp
+                <button id="snap" class="btn btn-default btn-lg button-name">Take Photo</button>
+                &nbsp&nbsp&nbsp&nbsp
+                <button id="snapconfirm" class="btn btn-default btn-lg button-name">Confirm</button>
+                &nbsp&nbsp&nbsp&nbsp
+                <button id="snapagain" class="btn btn-default btn-lg button-name">Picture Again</button>
+            </div>
+ --> 
         <canvas id="canvas" width="500" height="400"></canvas>
        
 
-          <div class="list-inline" id="takephoto-group">
-          <button id="snap"  class="btn btn-default btn-lg button-name">take a Photo</button>
-          </div>
+        <div class="list-inline" id="takephoto-group">
+          	<button id="snap"  class="btn btn-default btn-lg button-name">take a Photo</button>
+        </div>
        </div>
      <div class="col-lg-4 get-destination">
         <div  class="form-group class-inline">
             <h5 id="photopage-des">destination:</h5> <input type="text" id="destination" type="text" class="form-control" placeholder="Please Input Destination"/>
-            <input type="submit"  class="btn btn-default btn-lg button-name" onfocus="addPerson()" value="Submit" />
-           <script type="text/javascript">
-          function addPerson(){
+            <input type="submit" id="photopage-des-submit" class="btn btn-default btn-lg button-name" onfocus="des()" value="确定目的地" />
+        </div>
+     </div>
+     
+  </div>
+</div>
+
+ <a href="../jsp/findmap.jsp"><input type="submit"  class="btn btn-default btn-lg button-name" onfocus="addPerson()" value="Submit Page" /></a> 
+    
+  <script type="text/javascript">
+   function addPerson(){
 	 
 	   var destination = document.getElementById("destination").value;
 	   var canvas=document.getElementById("canvas");
@@ -76,15 +92,7 @@
     });
     
 } 
-
-
-    
-      
      
    </script>
-  </div>
-</div>
-</div>
-    </div>
 </body>
 </html>
