@@ -61,7 +61,7 @@ event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, 
 save_link.dispatchEvent(event);
 };
 
- var filename = "sitp_"+ (new Date()).getTime() +".png";
+ var filename = "sitp.png";
 
 saveFile(dataURL,filename);
 
