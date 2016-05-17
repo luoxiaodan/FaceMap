@@ -1,5 +1,6 @@
 package com.stip.servlet;
 
+import java.io.File;
 import java.sql.SQLException;
 
 
@@ -17,8 +18,25 @@ import com.stip.face.Face;
 
 
 public class FaceServlet extends HttpServlet{
-	
-    public FaceServlet() {
+	public static String path="C:\\Users\\lenovo\\Downloads\\";
+	public static String destination="同济大学嘉定校区图书馆";
+    public static String getDestination() {
+		return destination;
+	}
+    public static FaceServlet faceservlet=null;
+	public static void setDestination(String destination) {
+		FaceServlet.destination = destination;
+	}
+	public static FaceServlet shareSerlet(){
+		if(faceservlet==null){
+			return new FaceServlet();
+		}else{
+			return faceservlet;
+		}
+		
+		
+	}
+	public FaceServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -55,6 +73,12 @@ public class FaceServlet extends HttpServlet{
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				} catch (FaceppParseException e) {
 					// TODO Auto-generated catch block
@@ -67,24 +91,39 @@ public class FaceServlet extends HttpServlet{
 			
 				
 	       }
-		 public void comparePerson(HttpServletRequest request, HttpServletResponse response) throws FaceppParseException, JSONException, InterruptedException{
+		 public void comparePerson(HttpServletRequest request, HttpServletResponse response) throws FaceppParseException, JSONException, InterruptedException, ClassNotFoundException, SQLException{
+		
+			 
 			 String image = request.getParameter("image"); 
 		    	//String destination=request.getParameter("destination"); 
 			 System.out.println("compare "+image);
-			 Thread.sleep(1000);
+			
+			 File e=new File(path+image);
+		        if(e.exists()){
 		    	int num=Face.detection(image);
 				if(num!=0){
 					String res=Face.compareFace(image);//return people's name---res
+					String des=Dbase.findPerson(res);
+				FaceServlet.shareSerlet().destination=des;
 					System.out.println(res);
 				}else{
 					System.out.println("no face");////////messagebox
+					
+					File d=new File(path+image);
+					d.delete();
 				}
+		        }else{
+		        	 System.out.println("no exist");
+		        }
 		 }
 	    public void addPerson(HttpServletRequest request, HttpServletResponse response) throws FaceppParseException, JSONException, ClassNotFoundException, SQLException{
+	    	
 	    	String image = request.getParameter("image"); 
 	    	System.out.println("add "+image);
 	    	String destination=request.getParameter("destination"); 
-	    
+	        File e=new File(path+image);
+	        if(e.exists()){
+	    	
 	    	int num= Face.detection(image);
 			
 			if(num!=0){
@@ -93,6 +132,13 @@ public class FaceServlet extends HttpServlet{
 			}else{
 				System.out.println("no face");////////messagebox
 			}
+			
+			
+			File d=new File(path+image);
+			d.delete();
+	        }else{
+	        	System.out.println("no ");
+	        }
 	   }
 		
 		public void doGet(HttpServletRequest request, HttpServletResponse response)  

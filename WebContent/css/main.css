@@ -87,6 +87,7 @@ h6 {
     letter-spacing: 2px;
 }
 
+
 /*********************takephoto.html********************/
 .get-vedio{
 	/*background:#7e7e7e;*/
@@ -115,6 +116,14 @@ h6 {
     z-index: 5;
     
 }
+
+/*********************checkin.jsp********************/
+#maparea,#map{
+	margin-top:20px;
+	height:400px;
+	width:400px;
+}
+
 /*********************destination.html********************/
 .face-recognize{
 	/*background: grey;*/

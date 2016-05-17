@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$("#canvas").css("display","none");
 	$("#photopage-submit").click(
         function(){
           //var text=$('#search').val();
@@ -9,7 +10,11 @@ $(document).ready(function(){
     )
     $('#snap').click(
     	function(){
-    		$('#canvas').show();
+    		alert("ppp");
+    		//$('#canvas').show();
+    		$('#canvas').css("display","block");
+    		//$('#video').css("display","none");
+    		$('#video').hide();
     	}
     	)
     $('#snapconfirm').click(
@@ -32,11 +37,11 @@ $(document).ready(function(){
         }
     )
 
-    window.onload = function() {  
-            var snapconfirmButton = document.getElementById("snapconfirm");  
-            bindButtonEvent(snapconfirmButton, "click", saveAsLocalImage);  
-        }; 
-    function saveAsLocalImage () {  
+//    window.onload = function() {  
+//            var snapconfirmButton = document.getElementById("snapconfirm");  
+//            bindButtonEvent(snapconfirmButton, "click", saveAsLocalImage);  
+//        }; 
+    /*function saveAsLocalImage () {  
         var myCanvas = document.getElementById("canvas");  
         // here is the most important part because if you dont replace you will get a DOM 18 exception.  
         var image = myCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream;Content-Disposition: attachment;filename=foobar.png");  
@@ -46,16 +51,16 @@ $(document).ready(function(){
             //   'href'    : image              /// set data-uri
             // }); 
         window.location.href=image; // it will save locally  
-            } 
+            } */
 
-    function bindButtonEvent(element, type, handler)  
+ /*   function bindButtonEvent(element, type, handler)  
             {  
               if(element.addEventListener) {  
                   element.addEventListener(type, handler, false);  
               } else {  
                   element.attachEvent('on'+type, handler);  
                   }  
-            } 
+            } */
     
     //alert(photopage_input);
    // $('#canvas').css('display','none');
