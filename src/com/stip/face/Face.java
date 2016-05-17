@@ -14,8 +14,8 @@ public class Face {
 	static String apikey="173bc712ef23dde31b62b12dd72645e6";
 	static String apisecret="z33fmTgR2EDlcXvFJLSHw0rW56KxsDbp";
 	static byte[] bytes;
-	public static String path="C:\\Users\\dell\\Downloads\\";//your downloads
-	
+	//public static String path="C:\\Users\\dell\\Downloads\\";//your downloads
+	public static String path="C:\\Users\\lenovo\\Downloads\\";
 	public static int detection(String url) throws FaceppParseException, JSONException{
         HttpRequests httpRequests = new HttpRequests(apikey, apisecret, true, true);
 		

@@ -15,6 +15,24 @@
     <url-pattern>/servlet/DbaseServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GetDes</servlet-name>
+    <servlet-class>com.stip.servlet.GetDes</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetDes</servlet-name>
+    <url-pattern>/servlet/GetDes</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>SetDes</servlet-name>
+    <servlet-class>com.stip.servlet.SetDes</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SetDes</servlet-name>
+    <url-pattern>/servlet/SetDes</url-pattern>
+  </servlet-mapping>
+
+ <servlet>
     <servlet-name>FaceServlet</servlet-name>
     <servlet-class>com.stip.servlet.FaceServlet</servlet-class>
   </servlet>
@@ -22,4 +40,6 @@
     <servlet-name>FaceServlet</servlet-name>
     <url-pattern>/servlet/FaceServlet</url-pattern>
   </servlet-mapping>
+
+
 </web-app>
