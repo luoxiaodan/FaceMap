@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import org.json.JSONException;
 
@@ -108,7 +109,8 @@ public class FaceServlet extends HttpServlet{
 					System.out.println(res);
 				}else{
 					System.out.println("no face");////////messagebox
-					
+					 JOptionPane.showMessageDialog(null,"cannot detect face");
+	  				 
 					File d=new File(path+image);
 					d.delete();
 				}
@@ -131,6 +133,8 @@ public class FaceServlet extends HttpServlet{
 				Face.putFace(image,String.valueOf(name));//add people's information include name and destination
 			}else{
 				System.out.println("no face");////////messagebox
+				 JOptionPane.showMessageDialog(null,"cannot detect face");
+  				 
 			}
 			
 			
